@@ -15,7 +15,8 @@
     "@google-cloud/storage": "^7.14.0",
     "@hapi/hapi": "^21.3.12",
     "crypto": "^1.0.1",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "image-type": "4.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",

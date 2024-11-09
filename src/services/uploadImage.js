@@ -1,4 +1,6 @@
 const { Storage } = require("@google-cloud/storage");
+const { imageType } = require('image-type');
+const InputError = require("../exceptions/InputError");
 
 const storage = new Storage()
 
@@ -29,17 +31,16 @@ async function upload(bucket,id,image){
         }
 
         const optionsUploadObject = {
-            destination:`image/${id}`,
+            destination:`images/${id}`,
             preconditionOpts: {ifGenerationMatch:0},
             metadata:customMetadata
         }
 
         await storage.bucket(bucket).upload(image,optionsUploadObject)
-        console.log(`${filePath} uploaded to ${bucketName} bucket`)
+        return imageType.type(image)
     } catch (e) {
-        console.log(`Gagal Mengupload ${filePath}`,e.message)
+        throw InputError('Failed To Upload Images')
     }
 }
 
 module.exports = {getOrCreateBucket, upload}
-// getOrCreateBucket(bucketName).then(result => upload(result)).catch(e => e.message)

@@ -1,20 +1,15 @@
-const { hello, postPubSubMessage } =  require('./handler');
+const { inferenceEvent } =  require('./handler');
 
 const routes = [
   {
-    path:'/',
-    method:'GET',
-    handler:hello
-  },
-  {
-    path:'/{path}',
+    path:'/inference/{model}',
     method:'POST',
-    handler:postPubSubMessage,
+    handler:inferenceEvent,
     options: {
       payload: {
         allow: 'multipart/form-data',
         multipart: true,
-        maxBytes:1000000
+        maxBytes:100000
       }
     }
   }

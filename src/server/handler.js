@@ -4,27 +4,21 @@ const crypto = require('crypto')
 
 const bucketName = `testing-storage-aulia`
 
-function hello(request, h){
-  const response = h.response({
-    status:'success'
-  });
-  return response;
-}
-
-async function postPubSubMessage(request, h){
+async function inferenceEvent(request, h){
   try {
     const id = crypto.randomUUID()
     const { path } = request.params;
-    const data = request.payload;
+    // const data = request.payload;
+    if(path == 'Calories'){
+      const {image} = request.payload
+      const data = id
+      await getOrCreateBucket(bucketName).then(bucketName => upload(bucketName,id,image)).catch(e => e.message)
+      await publishPubSubMessage('Calories-ML', data);
+    }
     const response = h.response({
       status:'success',
       data:data
     });
-    if(path == 'Calories-ML'){
-    const {image} = request.payload
-    await getOrCreateBucket(bucketName).then(bucketName => upload(bucketName,id,image)).catch(e => e.message)
-    await publishPubSubMessage(path, data);
-    }
     response.code(200);
     return response;
   } catch (e) {
@@ -35,4 +29,4 @@ async function postPubSubMessage(request, h){
   }
 }
 
-module.exports = { hello, postPubSubMessage };
+module.exports = { inferenceEvent };
