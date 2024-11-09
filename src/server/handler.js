@@ -37,7 +37,7 @@ async function resultModelCalories(request, h){
     status:'success',
     pubsubMessage
   })
-  // console.log(response.source)
+  console.log(response.source)
   return response
 }
 
