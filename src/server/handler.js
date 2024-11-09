@@ -9,10 +9,13 @@ async function inferenceEvent(request, h){
     const id = crypto.randomUUID()
     const { path } = request.params;
     // const data = request.payload;
-    if(path == 'Calories'){
+    if(path == 'calories'){
       const {image} = request.payload
-      const data = id
-      await getOrCreateBucket(bucketName).then(bucketName => upload(bucketName,id,image)).catch(e => e.message)
+      const type = await getOrCreateBucket(bucketName).then(bucketName => upload(bucketName,id,image)).catch(e => e.message)
+      const data = { 
+        id:id,
+        type:type
+      }
       await publishPubSubMessage('Calories-ML', data);
     }
     const response = h.response({

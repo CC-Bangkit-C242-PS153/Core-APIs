@@ -31,7 +31,7 @@ async function upload(bucket,id,image){
         }
 
         const optionsUploadObject = {
-            destination:`images/${id}`,
+            destination:`test/${id}`,
             preconditionOpts: {ifGenerationMatch:0},
             metadata:customMetadata
         }
