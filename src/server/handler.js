@@ -37,8 +37,8 @@ async function resultModelCalories(request, h){
     status:'success',
     pubsubMessage
   })
-  // console.log(response)
-  return response
+  console.log(response.source)
+  return response.source
 }
 
 function decodeBase64Json(data) {
