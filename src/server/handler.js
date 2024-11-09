@@ -16,13 +16,6 @@ async function inferenceEventModelCalories(request, h){
         type:type
       }
       await publishPubSubMessage('Calories-ML', data);
-    // const response = h.response({
-    //   status:'success',
-    //   message:'Success to Send message',
-    //   data:data
-    // });
-    // response.code(200);
-    // return response
   } catch (e) {
     console.log(e.message);
     return h.response({
