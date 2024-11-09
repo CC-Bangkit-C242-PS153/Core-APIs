@@ -1,17 +1,22 @@
-const { inferenceEvent } =  require('./handler');
+const { inferenceEventModelCalories, resultModelCalories } = require('./handler');
 
 const routes = [
   {
-    path:'/inference/{model}',
+    path:'/inferences/calories',
     method:'POST',
-    handler:inferenceEvent,
+    handler:inferenceEventModelCalories,
     options: {
       payload: {
         allow: 'multipart/form-data',
         multipart: true,
         maxBytes:1000000
       }
-    }
+    },
+  },
+  {
+    path:'/inferences/calories/result',
+    method:'POST',
+    handler:resultModelCalories
   }
 ];
 
