@@ -32,13 +32,13 @@ async function inferenceEventModelCalories(request, h){
 }
 
 async function resultModelCalories(request, h){
-  const pubsubMessage = await decodeBase64Json(request.payload.message.data);
+  const pubsubMessage = await decodeBase64Json(request.payload.message.data.source);
   const response = h.response({
     status:'success',
     pubsubMessage
   })
-  console.log(response.source)
-  return response.source
+  // console.log(response.source)
+  return response
 }
 
 function decodeBase64Json(data) {
