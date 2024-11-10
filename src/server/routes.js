@@ -12,7 +12,7 @@ const routes = [
         maxBytes:1000000
       }
     },
-  }
+  },
   {
     path:'/inferences/calories/histories',
     method:'GET',
