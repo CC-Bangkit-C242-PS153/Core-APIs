@@ -1,5 +1,6 @@
 const { publishPubSubMessage } = require('./../services/pubsub');
 const {upload} = require('./../services/uploadImage')
+const {inferenceResult} = require('./../services/loadInferenceResult')
 const crypto = require('crypto')
 const imageType = require('image-type');
 
@@ -16,12 +17,12 @@ async function inferenceEventModelCalories(request, h){
         type:type
       }
       await publishPubSubMessage('Calories-ML', data);
+      const result = await inferenceResult(id)
     const response = h.response({
       status:'success',
-      message:'Success to Send message',
-      data:data
-    });
-    response.code(200);
+      message:'Model Predicted Succesfullt',
+      result
+    }).code(200);
     return response
   } catch (e) {
     return h.response({

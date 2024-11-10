@@ -12,12 +12,12 @@ const routes = [
         maxBytes:1000000
       }
     },
-  },
-  {
-    path:'/inferences/calories/result',
-    method:'POST',
-    handler:resultModelCalories
   }
+  // {
+  //   path:'/inferences/calories/result',
+  //   method:'POST',
+  //   handler:resultModelCalories
+  // }
 ];
 
 module.exports = { routes };
