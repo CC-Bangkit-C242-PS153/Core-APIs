@@ -31,17 +31,18 @@ async function inferenceEventModelCalories(request, h){
 }
 
 async function resultModelCalories(request, h){
-  const pubsubMessage = await decodeBase64Json(request.payload.message.data);
+  const pubsubMessage = request.payload.message.data
+  console.log(pubsubMessage)
   const response = h.response({
     status:'success',
     pubsubMessage
   })
-  console.log(response)
+  // console.log(response)
   return response
 }
 
-function decodeBase64Json(data) {
-  return JSON.parse(Buffer.from(data, 'base64').toString());
-}
+// function decodeBase64Json(data) {
+//   return JSON.parse(Buffer.from(data, 'base64').toString());
+// }
 
 module.exports = { inferenceEventModelCalories, resultModelCalories };
