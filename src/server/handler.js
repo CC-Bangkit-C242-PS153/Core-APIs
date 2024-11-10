@@ -20,7 +20,7 @@ async function inferenceEventModelCalories(request, h){
       const result = await inferenceResult(id)
     const response = h.response({
       status:'success',
-      message:'Model Predicted Succesfullt',
+      message:'Model Predicted Succesfully',
       result
     }).code(200);
     return response
