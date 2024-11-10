@@ -31,12 +31,13 @@ async function inferenceEventModelCalories(request, h){
 }
 
 async function resultModelCalories(request, h){
-  const pubsubMessage = request.payload
+  const pubsubMessage = request
   console.log(pubsubMessage)
   const response = h.response({
     status:'success',
     pubsubMessage
   })
+  response.code(200)
   // console.log(response)
   return response
 }
