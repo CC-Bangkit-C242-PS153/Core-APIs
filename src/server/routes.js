@@ -13,11 +13,11 @@ const routes = [
       }
     },
   }
-  // {
-  //   path:'/inferences/calories/result',
-  //   method:'POST',
-  //   handler:resultModelCalories
-  // }
+  {
+    path:'/inferences/calories/histories',
+    method:'GET',
+    handler:resultModelCalories
+  }
 ];
 
 module.exports = { routes };

@@ -5,7 +5,7 @@ const POOLING_INTERVAL = 1000
 async function inferenceResult(id){
     return new Promise((resolve,reject) => {
         const interval = setInterval(async () => {
-            const doc = await firestore.collection('prediction').doc(id).get()
+            const doc = await firestore.collection('prediction').collection('calories').doc(id).get()
             if(doc.exists){
                 clearInterval(interval)
                 resolve(doc.data())
