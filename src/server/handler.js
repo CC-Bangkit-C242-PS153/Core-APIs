@@ -1,50 +1,81 @@
 const { publishPubSubMessage } = require('./../services/pubsub');
-const {upload} = require('./../services/uploadImage')
-const {inferenceResult} = require('./../services/loadInferenceResult')
-const crypto = require('crypto')
+const { uploadImageInference } = require('./../services/uploadImage');
+const { caloriesInferenceFirestore, caloriesHistoriesFirestore } = require('./../services/loadInferenceResult');
+const { uploadUserData, downloadUserData } = require('./../services/userProfile');
+const crypto = require('crypto');
 const imageType = require('image-type');
+const bucketName = 'testing-storage-aulia';
 
-const bucketName = `testing-storage-aulia`
-
+// Inference process for calories prediction with image
 async function inferenceEventModelCalories(request, h){
   try {
-    const id = crypto.randomUUID()
-    const {image} = request.payload
-      const type = imageType(image)
-      await upload(bucketName,id,image,type).catch(e => e.message)
-      const data = { 
-        id:id,
-        type:type
-      }
-      await publishPubSubMessage('Calories-ML', data);
-      const result = await inferenceResult(id)
+    const inferenceId = crypto.randomUUID();
+    const userId = crypto.randomUUID(); // Diubah ketika sudah membuat service login
+    const { image } = request.payload;
+    const type = imageType(image);
+    await uploadImageInference(bucketName, inferenceId, image, type).catch((e) => e.message);
+    const data = {
+      userId:userId,
+      inferenceId:inferenceId,
+      type:type
+    };
+    await publishPubSubMessage('Calories-ML', data);
+    const result = await caloriesInferenceFirestore(userId, inferenceId);
     const response = h.response({
-      status:'success',
+      status:'Success',
+      statusCode:201,
       message:'Model Predicted Succesfully',
       result
-    }).code(200);
-    return response
+    }).code(201);
+    return response;
   } catch (e) {
     return h.response({
-      status:'fail'
+      status:'fail',
+      statusCode:500,
+      message:e.message
     }).code(500);
   }
 }
 
-async function resultModelCalories(request, h){
-  const pubsubMessage = request.payload
-  console.log(pubsubMessage)
-  const response = h.response({
-    status:'success',
-    pubsubMessage
-  })
-  response.code(200)
-  // console.log(response)
-  return response
+// Getting User Histories of Using Calories Predictions
+async function getUserCaloriesHistories(request, h){
+  try {
+    const { userId } = request.params;
+    const data = await caloriesHistoriesFirestore(userId);
+    const response = h.response({
+      status:'success',
+      statusCode:200,
+      data
+    });
+    response.code(200);
+    return response;
+  } catch (e){
+    return h.response({
+      status:'fail',
+      statusCode:500,
+      message:e.message
+    }).code(500);
+  }
 }
 
-// function decodeBase64Json(data) {
-//   return JSON.parse(Buffer.from(data, 'base64').toString());
-// }
+// Getting User Datas to Profile Pages
+async function getUserProfile(request, h){
+  try {
+    const { userId } = request.params;
+    const result = await downloadUserData(userId);
+    const response = h.response({
+      status:'success',
+      statusCode:200,
+      result:result.data()
+    }).code(200);
+    return response;
+  } catch (e){
+    return h.response({
+      status:'fail',
+      statusCode:500,
+      message:e.message
+    }).code(500);
+  }
+}
 
-module.exports = { inferenceEventModelCalories, resultModelCalories };
+module.exports = { inferenceEventModelCalories, getUserCaloriesHistories, getUserProfile };

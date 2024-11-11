@@ -3,10 +3,11 @@ const InputError = require('../exceptions/InputError');
 
 const storage = new Storage();
 
-async function upload(bucketName, id, image, type){
+// Save Image to Cloud Storage to be able to do inference on MLs APIs
+async function uploadImageInference(bucketName, inferenceId, image, type){
   try {
     const bucket = storage.bucket(bucketName);
-    const file = bucket.file(`test/${id}.${type.ext}`);
+    const file = bucket.file(`test/${inferenceId}.${type.ext}`);
 
     await file.save(image, {
       metadata: {
@@ -18,4 +19,8 @@ async function upload(bucketName, id, image, type){
   }
 }
 
-module.exports = { upload };
+// Save image Profile and return the url
+async function uploadImageProfile(bucketName, userId, image, type){
+
+}
+module.exports = { uploadImageInference };

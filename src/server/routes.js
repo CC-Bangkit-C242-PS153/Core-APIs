@@ -1,8 +1,8 @@
-const { inferenceEventModelCalories, resultModelCalories } = require('./handler');
+const { inferenceEventModelCalories, getUserCaloriesHistories, inferenceEventModelPhysical, getUserPhysicalHistories, getUserProfile } = require('./handler');
 
 const routes = [
   {
-    path:'/inferences/calories',
+    path:'/fitcal/v1/inferences/calories',
     method:'POST',
     handler:inferenceEventModelCalories,
     options: {
@@ -13,11 +13,26 @@ const routes = [
       }
     },
   },
+  {
+    path:'/fitcal/v1/inferences/calories/{userId}',
+    method:'GET',
+    handler:getUserCaloriesHistories
+  },
   // {
-  //   path:'/inferences/calories/histories',
+  //   path:'/fitcal/v1/inferences/physical',
+  //   method:'POST',
+  //   handler:inferenceEventModelPhysical
+  // },
+  // {
+  //   path:'/fitcal/v1/inferences/physical/{userId}',
   //   method:'GET',
-  //   handler:resultModelCalories
-  // }
+  //   handler:getUserPhysicalHistories
+  // },
+  {
+    path:'/fitcal/v1/profile/{userId}',
+    method:'GET',
+    handler:getUserProfile
+  }
 ];
 
 module.exports = { routes };
