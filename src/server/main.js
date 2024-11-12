@@ -1,4 +1,7 @@
 const Hapi = require('@hapi/hapi');
+const jwt = require('@hapi/jwt');
+require('dotenv').config();
+const secretKey = process.env.SECRET_KEY;
 const { routes } = require('./routes');
 const InputError = require('../exceptions/InputError');
 
@@ -10,6 +13,28 @@ const init = async () => {
       cors:{
         origin:['*']
       }
+    }
+  });
+
+  // plugin hapi/jwt
+  await server.register(jwt);
+
+  server.auth.strategy('jwt', 'jwt', {
+    keys:secretKey,
+    verify:{
+      aud: false,
+      iss: false,
+      sub: false,
+      nbf: true,
+      exp: true,
+      maxAgeSec:3600,
+      timeSkewSec: 15
+    },
+    validate:(artifacts, request, h) => {
+      return {
+        isValid:true,
+        credentials:{ userId:artifacts.decoded.payload.userId }
+      };
     }
   });
 

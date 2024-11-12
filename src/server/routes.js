@@ -1,4 +1,4 @@
-const { inferenceEventModelCalories, getUserCaloriesHistories, inferenceEventModelPhysical, getUserPhysicalHistories, getUserProfile } = require('./handler');
+const { inferenceEventModelCalories, getUserCaloriesHistories, inferenceEventModelPhysical, getUserPhysicalHistories, getUserProfile, postUserData } = require('./handler');
 
 const routes = [
   {
@@ -6,6 +6,7 @@ const routes = [
     method:'POST',
     handler:inferenceEventModelCalories,
     options: {
+      auth:'jwt',
       payload: {
         allow: 'multipart/form-data',
         multipart: true,
@@ -16,7 +17,10 @@ const routes = [
   {
     path:'/fitcal/v1/inferences/calories/{userId}',
     method:'GET',
-    handler:getUserCaloriesHistories
+    handler:getUserCaloriesHistories,
+    options:{
+      auth:'jwt'
+    }
   },
   // {
   //   path:'/fitcal/v1/inferences/physical',
@@ -29,9 +33,24 @@ const routes = [
   //   handler:getUserPhysicalHistories
   // },
   {
-    path:'/fitcal/v1/profile/{userId}',
+    path:'/fitcal/v1/users/profile/{userId}',
     method:'GET',
-    handler:getUserProfile
+    handler:getUserProfile,
+    options:{
+      auth:'jwt'
+    }
+  },
+  {
+    path:'/fitcal/v1/users/register',
+    method:'POST',
+    handler:postUserData,
+    options: {
+      payload: {
+        allow: 'multipart/form-data',
+        multipart: true,
+      },
+      auth: false
+    },
   }
 ];
 
