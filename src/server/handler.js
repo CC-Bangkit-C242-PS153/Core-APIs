@@ -33,7 +33,7 @@ async function  inferenceEventModelCalories(request, h){
     return response;
   } catch (e) {
     return h.response({
-      status:'fail do inference',
+      status:'failed to do inference',
       statusCode:500,
       message:e.message
     }).code(500);
@@ -46,7 +46,7 @@ async function getUserCaloriesHistories(request, h){
     const { userId } = request.auth.credentials;
     const data = await caloriesHistoriesFirestore(userId);
     const response = h.response({
-      status:'success',
+      status:'success to load data',
       statusCode:200,
       message:'Successfully retrieve user calories predictions histories',
       data
@@ -55,7 +55,7 @@ async function getUserCaloriesHistories(request, h){
     return response;
   } catch (e){
     return h.response({
-      status:'fail',
+      status:'failed to load data',
       statusCode:500,
       message:e.message
     }).code(500);
@@ -66,17 +66,22 @@ async function getUserCaloriesHistories(request, h){
 async function getUserProfile(request, h){
   try {
     const { userId } = request.auth.credentials;
-    const result = await downloadUserData(userId);
+    const result = (await downloadUserData(userId)).data();
     const response = h.response({
       status:'success',
       statusCode:200,
       message:'Successfully retrieve user data',
-      result:result.data()
+      data:{
+        name:result.name,
+        dateOfBirth:result.dateOfBirth,
+        gender:result.gender,
+        emailAddress:result.emailAddress
+      }
     }).code(200);
     return response;
   } catch (e){
     return h.response({
-      status:'fail',
+      status:'fail to retrieve users data',
       statusCode:500,
       message:e.message
     }).code(500);
@@ -148,7 +153,7 @@ async function loginUser(request, h){
     return response;
   } catch (e){
     return h.response({
-      status:'fail to login',
+      status:'failed to login',
       statusCode:400,
       message:e.message
     }).code(400);
