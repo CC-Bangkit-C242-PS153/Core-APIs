@@ -5,8 +5,8 @@ const { uploadUserData, downloadUserData } = require('./../services/userProfile'
 const crypto = require('crypto');
 const jwt = require('@hapi/jwt');
 const bcrypt = require('bcrypt');
-const secretKey = process.env.SECRET_KEY;
 const imageType = require('image-type');
+const secretKey = process.env.SECRET_KEY;
 const bucketName = 'testing-storage-aulia';
 
 // Inference process for calories prediction with image
@@ -153,7 +153,6 @@ async function loginUser(request, h){
       message:e.message
     }).code(400);
   }
-
 }
 
 module.exports = { inferenceEventModelCalories, getUserCaloriesHistories, getUserProfile, postUserData, loginUser };

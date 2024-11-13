@@ -14,7 +14,7 @@
     ],
     "paths": {
         "/users/register":{
-            "get":{
+            "post":{
                 "summary": "Register user with new account",
                 "description": "User register with email and password with another added information",
                 "operationId": "postUserData",
@@ -73,6 +73,30 @@
                                         "token":{
                                             "type": "string",
                                             "example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhdWxpYUVAZ21haWwuY29tIiwiaWF0IjoxNzMxNDcxODIyfQ.iRaBGNJ4Zxjon6FbJKAnKINHts19tv9YUCBaMRKl9nM"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failed to creating new user",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"failed creating user"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":400
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"Email already registered"
                                         }
                                     }
                                 }
