@@ -1,0 +1,86 @@
+{
+    "openapi":"3.0.3",
+    "info": {
+      "title":"fitcal RESTful APIs",
+      "version":"1.0",
+      "description": "fitcal RESTful APIs to fullfilled capstone projects",
+      "contact": {
+        "email": "email@gmail.com",
+        "name": "name"
+      }
+    },
+    "servers": [
+      {"url":"https://core-apis-729693024400.asia-southeast2.run.app/fitcal/v1"}
+    ],
+    "paths": {
+        "/users/register":{
+            "get":{
+                "summary": "Register user with new account",
+                "description": "User register with email and password with another added information",
+                "operationId": "postUserData",
+                "requestBody":{
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "name":{
+                                        "type": "string",
+                                        "example":"Nayeon"
+                                    },
+                                    "dateOfBirth":{
+                                        "type": "string",
+                                        "example":"21 September 2024"
+                                    },
+                                    "gender":{
+                                        "type": "string",
+                                        "example":"male"
+                                    },
+                                    "emailAddress":{
+                                        "type":"string",
+                                        "example":"Nayeon@gmail.com"
+                                    },
+                                    "password":{
+                                        "type": "string",
+                                        "example":"Nayeon123"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201":{
+                        "description": "Success creating new user",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"success"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":201
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"Successfully creating user"
+                                        },
+                                        "token":{
+                                            "type": "string",
+                                            "example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhdWxpYUVAZ21haWwuY29tIiwiaWF0IjoxNzMxNDcxODIyfQ.iRaBGNJ4Zxjon6FbJKAnKINHts19tv9YUCBaMRKl9nM"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }

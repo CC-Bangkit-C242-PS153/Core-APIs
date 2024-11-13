@@ -4,6 +4,7 @@ const { caloriesInferenceFirestore, caloriesHistoriesFirestore } = require('./..
 const { uploadUserData, downloadUserData } = require('./../services/userProfile');
 const crypto = require('crypto');
 const jwt = require('@hapi/jwt');
+const bcrypt = require('bcrypt');
 const secretKey = process.env.SECRET_KEY;
 const imageType = require('image-type');
 const bucketName = 'testing-storage-aulia';
@@ -42,7 +43,7 @@ async function  inferenceEventModelCalories(request, h){
 // Getting User Histories of Using Calories Predictions
 async function getUserCaloriesHistories(request, h){
   try {
-    const { userId } = request.params;
+    const { userId } = request.auth.credentials;
     const data = await caloriesHistoriesFirestore(userId);
     const response = h.response({
       status:'success',
@@ -64,12 +65,12 @@ async function getUserCaloriesHistories(request, h){
 // Getting User Datas to Profile Pages
 async function getUserProfile(request, h){
   try {
-    const { userId } = request.params;
+    const { userId } = request.auth.credentials;
     const result = await downloadUserData(userId);
     const response = h.response({
       status:'success',
       statusCode:200,
-      message:'Successfully retrive user data',
+      message:'Successfully retrieve user data',
       result:result.data()
     }).code(200);
     return response;
@@ -86,16 +87,17 @@ async function getUserProfile(request, h){
 async function postUserData(request, h){
   try {
     const { name, dateOfBirth, gender, emailAddress, password } = request.payload;
+    const hashedPassword = await bcrypt.hash(password, 10);
     const data = {
       name:name,
       dateOfBirth:dateOfBirth,
       gender:gender,
       emailAddress:emailAddress,
-      password:password
+      password:hashedPassword
     };
     const check = await downloadUserData(emailAddress);
     if (check.data()){
-    throw new Error('Email already registered');
+      throw new Error('Email already registered');
     }
     await uploadUserData(emailAddress, data);
     const payload = {
@@ -121,4 +123,37 @@ async function postUserData(request, h){
   }
 }
 
-module.exports = { inferenceEventModelCalories, getUserCaloriesHistories, getUserProfile, postUserData };
+// Checking user data while login
+async function loginUser(request, h){
+  try {
+    const { emailAddress, password } = request.payload;
+    const check = (await downloadUserData(emailAddress)).data();
+    const isMatch = await bcrypt.compare(password, check.password);
+    if (check == undefined || !isMatch){
+      throw new Error('Email or Password Wrong');
+    }
+    const payload = {
+      userId:emailAddress
+    };
+    const token = jwt.token.generate(payload, {
+      key:secretKey,
+      algorithm:'HS256'
+    });
+    const response = h.response({
+      status:'success',
+      statusCode:200,
+      message:'Successfully to login',
+      token:token
+    }).code(201);
+    return response;
+  } catch (e){
+    return h.response({
+      status:'fail to login',
+      statusCode:400,
+      message:e.message
+    }).code(400);
+  }
+
+}
+
+module.exports = { inferenceEventModelCalories, getUserCaloriesHistories, getUserProfile, postUserData, loginUser };
