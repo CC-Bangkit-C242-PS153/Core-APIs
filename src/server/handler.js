@@ -7,7 +7,7 @@ const jwt = require('@hapi/jwt');
 const bcrypt = require('bcrypt');
 const imageType = require('image-type');
 const secretKey = process.env.SECRET_KEY;
-const bucketName = 'testing-storage-aulia';
+const bucketName = process.env.BUCKET_NAME;
 
 // Inference process for calories prediction with image
 async function  inferenceEventModelCalories(request, h){

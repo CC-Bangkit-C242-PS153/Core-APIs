@@ -7,7 +7,7 @@ const storage = new Storage();
 async function uploadImageInference(bucketName, inferenceId, image, type){
   try {
     const bucket = storage.bucket(bucketName);
-    const file = bucket.file(`test/${inferenceId}.${type.ext}`);
+    const file = bucket.file(`prediction/${inferenceId}.${type.ext}`);
 
     await file.save(image, {
       metadata: {

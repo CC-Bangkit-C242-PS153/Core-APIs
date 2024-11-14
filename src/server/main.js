@@ -43,7 +43,8 @@ const init = async () => {
     const response = request.response;
     if (response instanceof InputError) {
       const newResponse = h.response({
-        status: 'fail',
+        status: 'failed due bad request',
+        statusCode:400,
         message: response.message
       });
       newResponse.code(400);
@@ -52,10 +53,11 @@ const init = async () => {
 
     if (response.isBoom) {
       const newResponse = h.response({
-        status: 'fail',
+        status: 'failed',
+        statusCode:401,
         message: response.message
       });
-      newResponse.code(413);
+      newResponse.code(401);
       return newResponse;
     }
     return h.continue;
