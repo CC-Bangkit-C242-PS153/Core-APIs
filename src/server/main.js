@@ -1,9 +1,13 @@
 const Hapi = require('@hapi/hapi');
-const jwt = require('@hapi/jwt');
+const admin = require('firebase-admin')
 require('dotenv').config();
-const secretKey = process.env.SECRET_KEY;
 const { routes } = require('./routes');
 const InputError = require('../exceptions/InputError');
+
+admin.initializeApp({
+  credential: admin.credential.applicationDefault()
+})
+
 
 const init = async () => {
   const server = Hapi.server({
@@ -11,34 +15,30 @@ const init = async () => {
     // host:'localhost',
     routes: {
       cors:{
-        origin:['*']
+        origin:['*'],
       }
     }
   });
 
-  // plugin hapi/jwt
-  await server.register(jwt);
-
-  server.auth.strategy('jwt', 'jwt', {
-    keys:secretKey,
-    verify:{
-      aud: false,
-      iss: false,
-      sub: false,
-      nbf: true,
-      exp: true,
-      maxAgeSec:3600,
-      timeSkewSec: 15
-    },
-    validate:(artifacts, request, h) => {
-      return {
-        isValid:true,
-        credentials:{ userId:artifacts.decoded.payload.userId }
-      };
-    }
-  });
-
   server.route(routes);
+
+  server.ext('onRequest', async (request, h) => {
+    const idToken = request.headers.authorization
+
+    if(!idToken){
+      return h.response({error:"Not Found a Token"}).code(401).takeover()
+    }
+
+    try{
+      // Verification idToken from firebase android
+      const decodedToken = await admin.auth().verifyIdToken(idToken)
+      request.auth.credentials = decodedToken
+      return h.continue
+    } catch(e) {
+      return h.response({error:"Invalid Token",token:await admin.auth().verifyIdToken(idToken)}).code(401).takeover()
+    }
+  })
+
   server.ext('onPreResponse', (request, h) => {
     const response = request.response;
     if (response instanceof InputError) {
