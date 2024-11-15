@@ -19,19 +19,6 @@ const routes = [
     handler:getUserCaloriesHistories,
   },
   // {
-  //   path:'/',
-  //   method:'GET',
-  //   handler:(request, h) => {
-  //     try{
-  //       return h.response({
-  //         status:'token valid'
-  //       })
-  //     } catch(e) {
-  //       return h.response({error:'invalid'})
-  //     }
-  //   },
-  // },
-  // {
   //   path:'/fitcal/v1/inferences/physical',
   //   method:'POST',
   //   handler:inferenceEventModelPhysical
@@ -41,11 +28,11 @@ const routes = [
   //   method:'GET',
   //   handler:getUserPhysicalHistories
   // },
-  // {
-  //   path:'/fitcal/v1/users/profile',
-  //   method:'GET',
-  //   handler:getUserProfile,
-  // },
+  {
+    path:'/fitcal/v1/users/profile',
+    method:'GET',
+    handler:getUserProfile,
+  },
   {
     path:'/fitcal/v1/users/register',
     method:'POST',

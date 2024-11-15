@@ -1,7 +1,7 @@
 const { publishPubSubMessage } = require('./../services/pubsub');
 const { uploadImageInference } = require('./../services/uploadImage');
-const { caloriesInferenceFirestore, caloriesHistoriesFirestore } = require('./../services/loadInferenceResult');
-const { uploadUserData, downloadUserData } = require('./../services/userProfile');
+// const { caloriesInferenceFirestore, caloriesHistoriesFirestore } = require('./../services/loadInferenceResult');
+const { uploadUserData, downloadUserData, caloriesInferenceFirestore, caloriesHistoriesFirestore } = require('../services/firebase');
 const crypto = require('crypto');
 const imageType = require('image-type');
 const bucketName = process.env.BUCKET_NAME;
@@ -19,6 +19,7 @@ async function  inferenceEventModelCalories(request, h){
       inferenceId:inferenceId,
       type:type
     };
+    console.log(data)
     await publishPubSubMessage('Calories-ML', data);
     const result = await caloriesInferenceFirestore(userId, inferenceId);
     const response = h.response({
@@ -95,7 +96,6 @@ async function postUserData(request, h){
       email:userData.email,
       uid:userData.uid
     };
-    console.log(data)
     const check = await downloadUserData(userData.uid);
     if (check.data()){
       throw new Error('Email already registered');

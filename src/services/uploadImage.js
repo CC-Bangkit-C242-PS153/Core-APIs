@@ -19,8 +19,4 @@ async function uploadImageInference(bucketName, inferenceId, image, type){
   }
 }
 
-// Save image Profile and return the url
-async function uploadImageProfile(bucketName, userId, image, type){
-  
-}
 module.exports = { uploadImageInference };
