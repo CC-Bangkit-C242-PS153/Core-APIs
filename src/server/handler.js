@@ -21,7 +21,7 @@ async function  inferenceEventModelCalories(request, h){
     };
     console.log(data)
     await publishPubSubMessage('Calories-ML', data);
-    const result = await caloriesInferenceFirestore(userId, inferenceId);
+    const result = await caloriesInferenceFirestore(userData.uid, inferenceId);
     const response = h.response({
       status:'Success',
       statusCode:201,
