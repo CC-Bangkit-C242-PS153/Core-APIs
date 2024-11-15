@@ -19,6 +19,19 @@ const routes = [
     handler:getUserCaloriesHistories,
   },
   // {
+  //   path:'/',
+  //   method:'GET',
+  //   handler:(request, h) => {
+  //     try{
+  //       return h.response({
+  //         status:'token valid'
+  //       })
+  //     } catch(e) {
+  //       return h.response({error:'invalid'})
+  //     }
+  //   },
+  // },
+  // {
   //   path:'/fitcal/v1/inferences/physical',
   //   method:'POST',
   //   handler:inferenceEventModelPhysical

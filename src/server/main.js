@@ -3,6 +3,7 @@ const admin = require('firebase-admin')
 require('dotenv').config();
 const { routes } = require('./routes');
 const InputError = require('../exceptions/InputError');
+// const serviceAccount = JSON.parse(process.env.SERVICE_ACCOUNT_KEY)
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault()

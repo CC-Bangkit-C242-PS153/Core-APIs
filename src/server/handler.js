@@ -95,6 +95,7 @@ async function postUserData(request, h){
       email:userData.email,
       uid:userData.uid
     };
+    console.log(data)
     const check = await downloadUserData(userData.uid);
     if (check.data()){
       throw new Error('Email already registered');
