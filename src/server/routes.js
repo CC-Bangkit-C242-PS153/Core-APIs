@@ -6,7 +6,6 @@ const routes = [
     method:'POST',
     handler:inferenceEventModelCalories,
     options: {
-      auth:'jwt',
       payload: {
         allow: 'multipart/form-data',
         multipart: true,
@@ -18,9 +17,6 @@ const routes = [
     path:'/fitcal/v1/inferences/calories',
     method:'GET',
     handler:getUserCaloriesHistories,
-    options:{
-      auth:'jwt'
-    }
   },
   // {
   //   path:'/fitcal/v1/inferences/physical',
@@ -36,33 +32,16 @@ const routes = [
     path:'/fitcal/v1/users/profile',
     method:'GET',
     handler:getUserProfile,
-    options:{
-      auth:'jwt'
-    }
   },
   {
     path:'/fitcal/v1/users/register',
     method:'POST',
     handler:postUserData,
-    options: {
-      auth: false,
-      payload: {
-        allow: 'multipart/form-data',
-        multipart: true,
-      }
-    },
   },
   {
     path:'/fitcal/v1/users/login',
     method:'POST',
     handler:loginUser,
-    options:{
-      auth:false,
-      payload:{
-        allow:'multipart/form-data',
-        multipart:true
-      }
-    }
   }
 ];
 

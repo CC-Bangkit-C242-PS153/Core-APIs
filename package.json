@@ -14,10 +14,9 @@
     "@google-cloud/pubsub": "^4.8.0",
     "@google-cloud/storage": "^7.14.0",
     "@hapi/hapi": "^21.3.12",
-    "@hapi/jwt": "^3.2.0",
-    "bcrypt": "^5.1.1",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
+    "firebase-admin": "^13.0.0",
     "image-type": "4.1.0"
   },
   "devDependencies": {

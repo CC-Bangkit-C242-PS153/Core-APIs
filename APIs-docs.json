@@ -10,103 +10,9 @@
       }
     },
     "servers": [
-      {"url":"https://core-apis-729693024400.asia-southeast2.run.app/fitcal/v1"}
+      {"url":"https://core-apis-firebase-2-639533720564.asia-southeast2.run.app/fitcal/v1"}
     ],
     "paths": {
-        "/users/register":{
-            "post":{
-                "summary": "Register user with new account",
-                "description": "User register with email and password with another added information",
-                "operationId": "postUserData",
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "name":{
-                                        "type": "string",
-                                        "example":"Nayeon"
-                                    },
-                                    "dateOfBirth":{
-                                        "type": "string",
-                                        "example":"21 September 2024"
-                                    },
-                                    "gender":{
-                                        "type": "string",
-                                        "example":"male"
-                                    },
-                                    "emailAddress":{
-                                        "type":"string",
-                                        "example":"Nayeon@gmail.com"
-                                    },
-                                    "password":{
-                                        "type": "string",
-                                        "example":"Nayeon123"
-                                    }
-                                },
-                                "required": ["name","dateOfBirth","gender","emailAddress","password"]
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201":{
-                        "description": "Success creating new user",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "status":{
-                                            "type": "string",
-                                            "example":"success"
-                                        },
-                                        "statusCode":{
-                                            "type": "number",
-                                            "example":201
-                                        },
-                                        "message":{
-                                            "type":"string",
-                                            "example":"Successfully creating user"
-                                        },
-                                        "token":{
-                                            "type": "string",
-                                            "example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhdWxpYUVAZ21haWwuY29tIiwiaWF0IjoxNzMxNDcxODIyfQ.iRaBGNJ4Zxjon6FbJKAnKINHts19tv9YUCBaMRKl9nM"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400":{
-                        "description": "Failed to creating new user",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type":"object",
-                                    "properties": {
-                                        "status":{
-                                            "type": "string",
-                                            "example":"failed creating user"
-                                        },
-                                        "statusCode":{
-                                            "type": "number",
-                                            "example":400
-                                        },
-                                        "message":{
-                                            "type":"string",
-                                            "example":"Email already registered"
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/inferences/calories":{
             "post":{
                 "summary": "Doing an inference to predicts calories with in an image",
@@ -119,9 +25,9 @@
                         "required": true,
                         "schema":{
                             "type": "string",
-                            "example":"Bearer jwt_token"
+                            "example":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlNTIxYmY1ZjdhNDAwOGMzYmQ3MjFmMzk2OTcwOWI1MzY0MzA5NjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQXhpb3MiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUJ2Sm5ZOXJpUDl0S0JVcHRSbkwteFpwTV9GV0pvQkljNjE4bklFOGU1MExGY3lBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZpdGNhbC1kNWIyMCIsImF1ZCI6ImZpdGNhbC1kNWIyMCIsImF1dGhfdGltZSI6MTczMTY4MDIxNCwidXNlcl9pZCI6IkxEZndhaVQwVUZla28yVDQ1MkJoSTMzbm5uNzMiLCJzdWIiOiJMRGZ3YWlUMFVGZWtvMlQ0NTJCaEkzM25ubjczIiwiaWF0IjoxNzMxNjgwMjE0LCJleHAiOjE3MzE2ODM4MTQsImVtYWlsIjoiYXhpb3MzMzlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5NDQxMjg3NjI3OTA5ODQ4NTciXSwiZW1haWwiOlsiYXhpb3MzMzlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.QYR1AnjGb4tbLpG1lI8JZ3mEvcYVs6syLCbtDQyAdfNtUzuh7oD-fMyehKOf__Jhm9TZw3HOBUUm3g9zl5XY3qHTfYoqWYQkK-kuxtcqqXtioDoQJG85Fq3qNIQAlbdW1QqzEdL0eYhwNlRv_b4-VXAMt6aiORS6054cC0OOLGuK0IWu5xKS2s-43hZyTisL0srunPxhX6q1szDmRmrLvSfAfviUVCGidKQEr9Hb4sjzgEu65a-ueYjK3c-JHMUu8CR2nJRsHm-UzuPW_uNMK1-qmH-iT3KdlqQN0HyOsAyTWLgUtJh-rP9YKs_nhLqY-IrTa-zMAm2lnqq07AheTw"
                         },
-                        "description": "JWT token for authentication"
+                        "description": "Firebase idToken that's get from auth"
                     }
                 ],
                 "requestBody":{
@@ -167,11 +73,11 @@
                                             "properties": {
                                                 "userId":{
                                                     "type": "string",
-                                                    "example":"Nayeon@gmail.com"
+                                                    "example":"LDfwaiT0UFeko2T452BhI33nnn73"
                                                 },
                                                 "InferenceId":{
                                                     "type":"string",
-                                                    "example":"cwewdw-1dwda"
+                                                    "example":"8b65895d-a2c5-4c03-9903-44ce05cf1be4"
                                                 },
                                                 "result":{
                                                     "type":"string",
@@ -229,9 +135,9 @@
                         "required": true,
                         "schema":{
                             "type": "string",
-                            "example":"Bearer jwt_token"
+                            "example":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlNTIxYmY1ZjdhNDAwOGMzYmQ3MjFmMzk2OTcwOWI1MzY0MzA5NjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQXhpb3MiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUJ2Sm5ZOXJpUDl0S0JVcHRSbkwteFpwTV9GV0pvQkljNjE4bklFOGU1MExGY3lBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZpdGNhbC1kNWIyMCIsImF1ZCI6ImZpdGNhbC1kNWIyMCIsImF1dGhfdGltZSI6MTczMTY4MDIxNCwidXNlcl9pZCI6IkxEZndhaVQwVUZla28yVDQ1MkJoSTMzbm5uNzMiLCJzdWIiOiJMRGZ3YWlUMFVGZWtvMlQ0NTJCaEkzM25ubjczIiwiaWF0IjoxNzMxNjgwMjE0LCJleHAiOjE3MzE2ODM4MTQsImVtYWlsIjoiYXhpb3MzMzlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5NDQxMjg3NjI3OTA5ODQ4NTciXSwiZW1haWwiOlsiYXhpb3MzMzlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.QYR1AnjGb4tbLpG1lI8JZ3mEvcYVs6syLCbtDQyAdfNtUzuh7oD-fMyehKOf__Jhm9TZw3HOBUUm3g9zl5XY3qHTfYoqWYQkK-kuxtcqqXtioDoQJG85Fq3qNIQAlbdW1QqzEdL0eYhwNlRv_b4-VXAMt6aiORS6054cC0OOLGuK0IWu5xKS2s-43hZyTisL0srunPxhX6q1szDmRmrLvSfAfviUVCGidKQEr9Hb4sjzgEu65a-ueYjK3c-JHMUu8CR2nJRsHm-UzuPW_uNMK1-qmH-iT3KdlqQN0HyOsAyTWLgUtJh-rP9YKs_nhLqY-IrTa-zMAm2lnqq07AheTw"
                         },
-                        "description": "JWT token for authentication"
+                        "description": "Firebase idToken that's get from auth"
                     }
                 ],
                 "responses": {
@@ -261,11 +167,11 @@
                                                 "properties": {
                                                 "userId":{
                                                     "type": "string",
-                                                    "example":"Nayeon@gmail.com"
+                                                    "example":"LDfwaiT0UFeko2T452BhI33nnn73"
                                                 },
                                                 "inferenceId":{
                                                     "type": "string",
-                                                    "example":"cwewew-12ada"
+                                                    "example":"8b65895d-a2c5-4c03-9903-44ce05cf1be4"
                                                 },
                                                 "result":{
                                                     "type": "string",
@@ -326,9 +232,9 @@
                         "required": true,
                         "schema":{
                             "type": "string",
-                            "example":"Bearer jwt_token"
+                            "example":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlNTIxYmY1ZjdhNDAwOGMzYmQ3MjFmMzk2OTcwOWI1MzY0MzA5NjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQXhpb3MiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUJ2Sm5ZOXJpUDl0S0JVcHRSbkwteFpwTV9GV0pvQkljNjE4bklFOGU1MExGY3lBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZpdGNhbC1kNWIyMCIsImF1ZCI6ImZpdGNhbC1kNWIyMCIsImF1dGhfdGltZSI6MTczMTY4MDIxNCwidXNlcl9pZCI6IkxEZndhaVQwVUZla28yVDQ1MkJoSTMzbm5uNzMiLCJzdWIiOiJMRGZ3YWlUMFVGZWtvMlQ0NTJCaEkzM25ubjczIiwiaWF0IjoxNzMxNjgwMjE0LCJleHAiOjE3MzE2ODM4MTQsImVtYWlsIjoiYXhpb3MzMzlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5NDQxMjg3NjI3OTA5ODQ4NTciXSwiZW1haWwiOlsiYXhpb3MzMzlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.QYR1AnjGb4tbLpG1lI8JZ3mEvcYVs6syLCbtDQyAdfNtUzuh7oD-fMyehKOf__Jhm9TZw3HOBUUm3g9zl5XY3qHTfYoqWYQkK-kuxtcqqXtioDoQJG85Fq3qNIQAlbdW1QqzEdL0eYhwNlRv_b4-VXAMt6aiORS6054cC0OOLGuK0IWu5xKS2s-43hZyTisL0srunPxhX6q1szDmRmrLvSfAfviUVCGidKQEr9Hb4sjzgEu65a-ueYjK3c-JHMUu8CR2nJRsHm-UzuPW_uNMK1-qmH-iT3KdlqQN0HyOsAyTWLgUtJh-rP9YKs_nhLqY-IrTa-zMAm2lnqq07AheTw"
                         },
-                        "description": "JWT token for authentication"
+                        "description": "Firebase idToken that's get from auth"
                     }
                 ],
                 "responses": {
@@ -358,17 +264,17 @@
                                                     "type": "string",
                                                     "example":"Nayeon"
                                                 },
-                                                "dateOfBirth":{
+                                                "email":{
                                                     "type": "string",
-                                                    "example":"21 September 2024"
+                                                    "example":"axios339@gmail.com"
                                                 },
-                                                "gender":{
+                                                "picture":{
                                                     "type": "string",
-                                                    "example":"male"
+                                                    "example":"https://lh3.googleusercontent.com/a/ACg8ocIBvJnY9riP9tKBUptRnL-xZpM_FWJoBIc618nIE8e50LFcyA=s96-c"
                                                 },
-                                                "emailAddress":{
+                                                "uid":{
                                                     "type": "string",
-                                                    "example":"Nayeon@gmail.com"
+                                                    "example":"LDfwaiT0UFeko2T452BhI33nnn73"
                                                 }
                                             }
                                         }
@@ -404,35 +310,116 @@
                 }  
             }
         },
-        "/users/login":{
+        "/users/register":{
             "post":{
-                "summary": "users login with existing account",
-                "description": "User login with email and password",
-                "operationId": "loginUser",
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "emailAddress":{
-                                        "type":"string",
-                                        "example":"Nayeon@gmail.com"
-                                    },
-                                    "password":{
-                                        "type": "string",
-                                        "example":"Nayeon123"
+                "summary": "Save users profile data to firestore",
+                "description": "Calling an firestore to save users profile data",
+                "operationId": "postUserData",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "schema":{
+                            "type": "string",
+                            "example":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlNTIxYmY1ZjdhNDAwOGMzYmQ3MjFmMzk2OTcwOWI1MzY0MzA5NjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQXhpb3MiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUJ2Sm5ZOXJpUDl0S0JVcHRSbkwteFpwTV9GV0pvQkljNjE4bklFOGU1MExGY3lBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZpdGNhbC1kNWIyMCIsImF1ZCI6ImZpdGNhbC1kNWIyMCIsImF1dGhfdGltZSI6MTczMTY4MDIxNCwidXNlcl9pZCI6IkxEZndhaVQwVUZla28yVDQ1MkJoSTMzbm5uNzMiLCJzdWIiOiJMRGZ3YWlUMFVGZWtvMlQ0NTJCaEkzM25ubjczIiwiaWF0IjoxNzMxNjgwMjE0LCJleHAiOjE3MzE2ODM4MTQsImVtYWlsIjoiYXhpb3MzMzlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5NDQxMjg3NjI3OTA5ODQ4NTciXSwiZW1haWwiOlsiYXhpb3MzMzlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.QYR1AnjGb4tbLpG1lI8JZ3mEvcYVs6syLCbtDQyAdfNtUzuh7oD-fMyehKOf__Jhm9TZw3HOBUUm3g9zl5XY3qHTfYoqWYQkK-kuxtcqqXtioDoQJG85Fq3qNIQAlbdW1QqzEdL0eYhwNlRv_b4-VXAMt6aiORS6054cC0OOLGuK0IWu5xKS2s-43hZyTisL0srunPxhX6q1szDmRmrLvSfAfviUVCGidKQEr9Hb4sjzgEu65a-ueYjK3c-JHMUu8CR2nJRsHm-UzuPW_uNMK1-qmH-iT3KdlqQN0HyOsAyTWLgUtJh-rP9YKs_nhLqY-IrTa-zMAm2lnqq07AheTw"
+                        },
+                        "description": "Firebase idToken that's get from auth"
+                    }
+                ],
+                "responses": {
+                    "201":{
+                        "description": "success save new users data",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"Success"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":201
+                                        },
+                                        "message":{
+                                            "type": "string",
+                                            "example":"Successfully creating user"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "name":{
+                                                    "type": "string",
+                                                    "example":"Nayeon"
+                                                },
+                                                "picture":{
+                                                    "type": "string",
+                                                    "example":"https://lh3.googleusercontent.com/a/ACg8ocIBvJnY9riP9tKBUptRnL-xZpM_FWJoBIc618nIE8e50LFcyA=s96-c"
+                                                },
+                                                "email":{
+                                                    "type": "string",
+                                                    "example":"axios@gmail.com"
+                                                },
+                                                "uid":{
+                                                    "type": "string",
+                                                    "example":"LDfwaiT0UFeko2T452BhI33nnn73"
+                                                }
+                                            }
+                                        }
                                     }
-                                },
-                                "required": ["emailAddress","password"]
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "fail to save users data",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"fail to creating new users"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":400
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"Email already registered"
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-                },
-                "responses": {
+                }
+            }
+        },
+        "/users/login":{
+            "post":{
+                "summary": "Checking users profile data to firestore",
+                "description": "Calling an firestore to check users profile data",
+                "operationId":"loginUser",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "schema":{
+                            "type": "string",
+                            "example":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlNTIxYmY1ZjdhNDAwOGMzYmQ3MjFmMzk2OTcwOWI1MzY0MzA5NjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQXhpb3MiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUJ2Sm5ZOXJpUDl0S0JVcHRSbkwteFpwTV9GV0pvQkljNjE4bklFOGU1MExGY3lBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZpdGNhbC1kNWIyMCIsImF1ZCI6ImZpdGNhbC1kNWIyMCIsImF1dGhfdGltZSI6MTczMTY4MDIxNCwidXNlcl9pZCI6IkxEZndhaVQwVUZla28yVDQ1MkJoSTMzbm5uNzMiLCJzdWIiOiJMRGZ3YWlUMFVGZWtvMlQ0NTJCaEkzM25ubjczIiwiaWF0IjoxNzMxNjgwMjE0LCJleHAiOjE3MzE2ODM4MTQsImVtYWlsIjoiYXhpb3MzMzlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5NDQxMjg3NjI3OTA5ODQ4NTciXSwiZW1haWwiOlsiYXhpb3MzMzlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.QYR1AnjGb4tbLpG1lI8JZ3mEvcYVs6syLCbtDQyAdfNtUzuh7oD-fMyehKOf__Jhm9TZw3HOBUUm3g9zl5XY3qHTfYoqWYQkK-kuxtcqqXtioDoQJG85Fq3qNIQAlbdW1QqzEdL0eYhwNlRv_b4-VXAMt6aiORS6054cC0OOLGuK0IWu5xKS2s-43hZyTisL0srunPxhX6q1szDmRmrLvSfAfviUVCGidKQEr9Hb4sjzgEu65a-ueYjK3c-JHMUu8CR2nJRsHm-UzuPW_uNMK1-qmH-iT3KdlqQN0HyOsAyTWLgUtJh-rP9YKs_nhLqY-IrTa-zMAm2lnqq07AheTw"
+                        },
+                        "description": "Firebase idToken that's get from auth"
+                    }
+                ],
+                "responses":{
                     "200":{
-                        "description": "Success login to account",
+                        "description": "success check users account data and account registered",
                         "content": {
                             "application/json":{
                                 "schema":{
@@ -447,12 +434,8 @@
                                             "example":200
                                         },
                                         "message":{
-                                            "type":"string",
-                                            "example":"Successfully to login"
-                                        },
-                                        "token":{
                                             "type": "string",
-                                            "example":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhdWxpYUVAZ21haWwuY29tIiwiaWF0IjoxNzMxNDcxODIyfQ.iRaBGNJ4Zxjon6FbJKAnKINHts19tv9YUCBaMRKl9nM"
+                                            "example":"Successfullt to login"
                                         }
                                     }
                                 }
@@ -460,11 +443,11 @@
                         }
                     },
                     "400":{
-                        "description": "Failed to login",
+                        "description": "success check users account data and account not registered",
                         "content": {
                             "application/json":{
                                 "schema":{
-                                    "type":"object",
+                                    "type": "object",
                                     "properties": {
                                         "status":{
                                             "type": "string",
@@ -476,7 +459,7 @@
                                         },
                                         "message":{
                                             "type":"string",
-                                            "example":"Email or Password Wrong"
+                                            "example":"Account not found, Registered first"
                                         }
                                     }
                                 }
