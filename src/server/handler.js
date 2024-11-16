@@ -1,6 +1,5 @@
 const { publishPubSubMessage } = require('./../services/pubsub');
 const { uploadImageInference } = require('./../services/uploadImage');
-// const { caloriesInferenceFirestore, caloriesHistoriesFirestore } = require('./../services/loadInferenceResult');
 const { uploadUserData, downloadUserData, caloriesInferenceFirestore, caloriesHistoriesFirestore } = require('../services/firebase');
 const crypto = require('crypto');
 const imageType = require('image-type');
