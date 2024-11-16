@@ -128,7 +128,7 @@ async function loginUser(request, h){
       status:'success',
       statusCode:200,
       message:'Successfully to login',
-    }).code(201);
+    }).code(200);
     return response;
   } catch (e){
     return h.response({
