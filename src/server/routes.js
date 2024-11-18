@@ -1,4 +1,4 @@
-const { inferenceEventModelCalories, getUserCaloriesHistories, inferenceEventModelPhysical, getUserPhysicalHistories, getUserProfile, postUserData, loginUser } = require('./handler');
+const { inferenceEventModelCalories, getUserCaloriesHistories, inferenceEventModelPhysical, getUserPhysicalHistories, inferenceEventModelSleep, getUserSleepHistories, getUserProfile, postUserData, loginUser } = require('./handler');
 
 const routes = [
   {
@@ -27,6 +27,16 @@ const routes = [
     path:'/fitcal/v1/inferences/physical',
     method:'GET',
     handler:getUserPhysicalHistories
+  },
+  {
+    path:'/fitcal/v1/inferences/sleep',
+    method:'POST',
+    handler:inferenceEventModelSleep
+  },
+  {
+    path:'/fitcal/v1/inferences/sleep',
+    method:'GET',
+    handler:getUserSleepHistories
   },
   {
     path:'/fitcal/v1/users/profile',
