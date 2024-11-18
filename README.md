@@ -21,7 +21,6 @@ Make sure Firebase and cloud services are on the same projects and use the servi
 ## Dependencies
 
 ```
-@google-cloud/firestore: ^7.10.0
 @google-cloud/pubsub: ^4.8.0
 @google-cloud/storage: ^7.14.0
 @hapi/hapi: ^21.3.12
