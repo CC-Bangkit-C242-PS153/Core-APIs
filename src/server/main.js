@@ -2,7 +2,7 @@ const Hapi = require('@hapi/hapi');
 require('dotenv').config();
 const { routes } = require('./routes');
 const InputError = require('../exceptions/InputError');
-const {validation} = require('../services/firebase')
+const { validation } = require('../services/firebase');
 
 const init = async () => {
   const server = Hapi.server({
@@ -17,7 +17,7 @@ const init = async () => {
 
   server.route(routes);
 
-  server.ext('onRequest', validation)
+  server.ext('onRequest', validation);
 
   server.ext('onPreResponse', (request, h) => {
     const response = request.response;

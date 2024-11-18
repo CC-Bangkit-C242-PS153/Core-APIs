@@ -1,6 +1,6 @@
 const { publishPubSubMessage } = require('./../services/pubsub');
 const { uploadImageInference } = require('./../services/uploadImage');
-const { uploadUserData, downloadUserData, caloriesInferenceFirestore, caloriesHistoriesFirestore, physicalInferenceFirestore, physicalHistoriesFirestore } = require('../services/firebase');
+const { uploadUserData, downloadUserData, caloriesInferenceFirestore, caloriesHistoriesFirestore, physicalInferenceFirestore, physicalHistoriesFirestore, sleepInferenceFirestore, sleepHistoriesFirestore } = require('../services/firebase');
 const crypto = require('crypto');
 const imageType = require('image-type');
 const bucketName = process.env.BUCKET_NAME;
@@ -46,8 +46,7 @@ async function getUserCaloriesHistories(request, h){
       statusCode:200,
       message:'Successfully retrieve user calories predictions histories',
       data
-    });
-    response.code(200);
+    }).code(200);
     return response;
   } catch (e){
     return h.response({
@@ -97,8 +96,7 @@ async function getUserPhysicalHistories(request, h){
       statusCode:200,
       message:'Successfully retrieve user calories predictions histories',
       data
-    });
-    response.code(200);
+    }).code(200);
     return response;
   } catch (e){
     return h.response({
@@ -108,6 +106,57 @@ async function getUserPhysicalHistories(request, h){
     }).code(500);
   }
 }
+
+// Inference process for Sleep Recommendation recommendation with sleep activity input
+async function inferenceEventModelSleep(request, h){
+  try {
+    const userData = request.auth.credentials;
+    const inferenceId = crypto.randomUUID();
+    const { sleep } = request.payload;
+    const data = {
+      userId:userData.uid,
+      inferenceId:inferenceId,
+      sleep:sleep
+    };
+    await publishPubSubMessage('Sleep-ML', data);
+    const result = await sleepInferenceFirestore(userData.uid, inferenceId);
+    const response = h.response({
+      status:'Success',
+      statusCode:201,
+      message:'success to do inference',
+      result
+    }).code(201);
+    return response;
+  } catch (e) {
+    return h.response({
+      status:'failed to do inference',
+      statusCode:500,
+      message:e.message
+    }).code(500);
+  }
+}
+
+// Getting User Histories of Using Sleep activity recommendations
+async function getUserSleepHistories(request, h){
+  try {
+    const userData = request.auth.credentials;
+    const data = await sleepHistoriesFirestore(userData.uid);
+    const response = h.response({
+      status:'success to load data',
+      statusCode:200,
+      message:'Successfully retrieve user calories predictions histories',
+      data
+    }).code(200);
+    return response;
+  } catch (e){
+    return h.response({
+      status:'failed to load data',
+      statusCode:500,
+      message:e.message
+    }).code(500);
+  }
+}
+
 
 // Getting User Datas to Profile Pages
 async function getUserProfile(request, h){
@@ -189,4 +238,4 @@ async function loginUser(request, h){
   }
 }
 
-module.exports = { inferenceEventModelCalories, getUserCaloriesHistories, inferenceEventModelPhysical, getUserPhysicalHistories, getUserProfile, postUserData, loginUser };
+module.exports = { inferenceEventModelCalories, getUserCaloriesHistories, inferenceEventModelPhysical, getUserPhysicalHistories, inferenceEventModelSleep, getUserSleepHistories, getUserProfile, postUserData, loginUser };
