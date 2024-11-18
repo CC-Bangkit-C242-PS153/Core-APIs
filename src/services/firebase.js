@@ -1,7 +1,7 @@
 const admin = require('firebase-admin');
 const { getFirestore } = require('firebase-admin/firestore');
 const serviceAcc = JSON.parse(process.env.SERVICE_ACCOUNT_KEY);
-const POOLING_INTERVAL = 500;
+const POOLING_INTERVAL = 100;
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAcc)
