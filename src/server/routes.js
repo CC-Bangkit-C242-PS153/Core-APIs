@@ -18,16 +18,16 @@ const routes = [
     method:'GET',
     handler:getUserCaloriesHistories,
   },
-  // {
-  //   path:'/fitcal/v1/inferences/physical',
-  //   method:'POST',
-  //   handler:inferenceEventModelPhysical
-  // },
-  // {
-  //   path:'/fitcal/v1/inferences/physical/{userId}',
-  //   method:'GET',
-  //   handler:getUserPhysicalHistories
-  // },
+  {
+    path:'/fitcal/v1/inferences/physical',
+    method:'POST',
+    handler:inferenceEventModelPhysical
+  },
+  {
+    path:'/fitcal/v1/inferences/physical',
+    method:'GET',
+    handler:getUserPhysicalHistories
+  },
   {
     path:'/fitcal/v1/users/profile',
     method:'GET',

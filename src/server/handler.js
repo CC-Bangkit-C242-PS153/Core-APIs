@@ -1,6 +1,6 @@
 const { publishPubSubMessage } = require('./../services/pubsub');
 const { uploadImageInference } = require('./../services/uploadImage');
-const { uploadUserData, downloadUserData, caloriesInferenceFirestore, caloriesHistoriesFirestore } = require('../services/firebase');
+const { uploadUserData, downloadUserData, caloriesInferenceFirestore, caloriesHistoriesFirestore, physicalInferenceFirestore, physicalHistoriesFirestore } = require('../services/firebase');
 const crypto = require('crypto');
 const imageType = require('image-type');
 const bucketName = process.env.BUCKET_NAME;
@@ -41,6 +41,57 @@ async function getUserCaloriesHistories(request, h){
   try {
     const userData = request.auth.credentials;
     const data = await caloriesHistoriesFirestore(userData.uid);
+    const response = h.response({
+      status:'success to load data',
+      statusCode:200,
+      message:'Successfully retrieve user calories predictions histories',
+      data
+    });
+    response.code(200);
+    return response;
+  } catch (e){
+    return h.response({
+      status:'failed to load data',
+      statusCode:500,
+      message:e.message
+    }).code(500);
+  }
+}
+
+// Inference process for Physical recommendation with physical activity input
+async function inferenceEventModelPhysical(request, h){
+  try {
+    const userData = request.auth.credentials;
+    const inferenceId = crypto.randomUUID();
+    const { activity } = request.payload;
+    const data = {
+      userId:userData.uid,
+      inferenceId:inferenceId,
+      activity:activity
+    };
+    await publishPubSubMessage('Physical-ML', data);
+    const result = await physicalInferenceFirestore(userData.uid, inferenceId);
+    const response = h.response({
+      status:'Success',
+      statusCode:201,
+      message:'success to do inference',
+      result
+    }).code(201);
+    return response;
+  } catch (e) {
+    return h.response({
+      status:'failed to do inference',
+      statusCode:500,
+      message:e.message
+    }).code(500);
+  }
+}
+
+// Getting User Histories of Using Physical activity recommendations
+async function getUserPhysicalHistories(request, h){
+  try {
+    const userData = request.auth.credentials;
+    const data = await physicalHistoriesFirestore(userData.uid);
     const response = h.response({
       status:'success to load data',
       statusCode:200,
@@ -138,4 +189,4 @@ async function loginUser(request, h){
   }
 }
 
-module.exports = { inferenceEventModelCalories, getUserCaloriesHistories, getUserProfile, postUserData, loginUser };
+module.exports = { inferenceEventModelCalories, getUserCaloriesHistories, inferenceEventModelPhysical, getUserPhysicalHistories, getUserProfile, postUserData, loginUser };
