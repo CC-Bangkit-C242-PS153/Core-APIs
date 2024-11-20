@@ -113,23 +113,24 @@ async function inferenceEventModelSleep(request, h){
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
     const { gender, age, sleepDuration, qualitySleep, physicalActivity, stressLevel, BMI, heartRate, dailySteps, systolic, diastolic } = request.payload;
-    const datas = {
+    const data = {
       userId:userData.uid,
       inferenceId:inferenceId,
-        gender:gender,
-        age:age,
-        sleepDuration:sleepDuration,
-        qualitySleep:qualitySleep,
-        physicalActivity:physicalActivity,
-        stressLevel:stressLevel,
-        BMI:BMI,
-        heartRate:heartRate,
-        dailySteps:dailySteps,
-        systolic:systolic,
-        diastolic:diastolic,
+      data:{
+        gender:gender.toString(),
+        age:age.toString(),
+        sleepDuration:sleepDuration.toString(),
+        qualitySleep:qualitySleep.toString(),
+        physicalActivity:physicalActivity.toString(),
+        stressLevel:stressLevel.toString(),
+        BMI:BMI.toString(),
+        heartRate:heartRate.toString(),
+        dailySteps:dailySteps.toString(),
+        systolic:systolic.toString(),
+        diastolic:diastolic.toString(),
+      }
     };
-    JSON.stringify(datas)
-    await publishPubSubMessage('Sleep-ML', datas);
+    await publishPubSubMessage('Sleep-ML', data);
     const result = await sleepInferenceFirestore(userData.uid, inferenceId);
     const response = h.response({
       status:'Success',
