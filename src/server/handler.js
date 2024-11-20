@@ -128,6 +128,7 @@ async function inferenceEventModelSleep(request, h){
         systolic:systolic,
         diastolic:diastolic,
     };
+    JSON.stringify(datas)
     await publishPubSubMessage('Sleep-ML', datas);
     const result = await sleepInferenceFirestore(userData.uid, inferenceId);
     const response = h.response({
