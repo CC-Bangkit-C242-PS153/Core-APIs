@@ -10,13 +10,22 @@ async function  inferenceEventModelCalories(request, h){
   try {
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
-    const { image } = request.payload;
+    const { image, water, protein, lipid, ash, carbohydrate, fiber, sugar } = request.payload;
     const type = imageType(image);
     await uploadImageInference(bucketName, inferenceId, image, type).catch((e) => e.message);
     const data = {
       userId:userData.uid,
       inferenceId:inferenceId,
-      type:type
+      data:{
+        type:type,
+        water:water.toString(),
+        protein:protein.toString(),
+        lipid:lipid.toString(),
+        ash:ash.toString(),
+        carbohydrate:carbohydrate.toString(),
+        fiber:fiber.toString(),
+        sugar:sugar.toString()
+      }
     };
     await publishPubSubMessage('Calories-ML', data);
     const result = await caloriesInferenceFirestore(userData.uid, inferenceId);
@@ -62,11 +71,19 @@ async function inferenceEventModelPhysical(request, h){
   try {
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
-    const { activity } = request.payload;
+    const { gender, age, height, weight, duration, heartRate, bodyTemp } = request.payload;
     const data = {
       userId:userData.uid,
       inferenceId:inferenceId,
-      activity:activity
+      data:{
+        gender:gender.toString(),
+        age:age.toString(),
+        height:height.toString(),
+        weight:weight.toString(),
+        duration:duration.toString(),
+        heartRate:heartRate.toString(),
+        bodyTemp:bodyTemp.toString()
+      }
     };
     await publishPubSubMessage('Physical-ML', data);
     const result = await physicalInferenceFirestore(userData.uid, inferenceId);
