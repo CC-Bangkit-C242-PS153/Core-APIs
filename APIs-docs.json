@@ -41,9 +41,37 @@
                                         "type": "string",
                                         "format": "byte",
                                         "example":"<12 1 25 21 20>"
+                                    },
+                                    "water":{
+                                        "type": "number",
+                                        "example":15.87
+                                    },
+                                    "protein":{
+                                        "type": "number",
+                                        "example":0.85
+                                    },
+                                    "lipid":{
+                                        "type": "number",
+                                        "example":81.11
+                                    },
+                                    "ash":{
+                                        "type": "number",
+                                        "example":2.11
+                                    },
+                                    "carbohydrate":{
+                                        "type": "number",
+                                        "example":0.06
+                                    },
+                                    "fiber":{
+                                        "type": "number",
+                                        "example":0.0
+                                    },
+                                    "sugar":{
+                                        "type": "number",
+                                        "example":0.51
                                     }
                                 },
-                                "required": ["image"]
+                                "required": ["image", "water", "protein", "lipid", "ash", "carbohydrate", "fiber", "sugar" ]
                             }
                         }
                     }
@@ -80,12 +108,8 @@
                                                     "example":"8b65895d-a2c5-4c03-9903-44ce05cf1be4"
                                                 },
                                                 "result":{
-                                                    "type":"string",
-                                                    "example":"label"
-                                                },
-                                                "suggestion":{
-                                                    "type": "string",
-                                                    "example":"example"
+                                                    "type":"number",
+                                                    "example":690.5
                                                 },
                                                 "createdAt":{
                                                     "type":"string",
@@ -125,7 +149,7 @@
                 }
             },
             "get":{
-                "summary": "Collect an inference data to one user specifically",
+                "summary": "Collect an calories inference data to one user specifically",
                 "description": "Calling an firestore to load inference data of user using calories model",
                 "operationId": "getUserCaloriesHistories",
                 "parameters": [
@@ -174,12 +198,8 @@
                                                     "example":"8b65895d-a2c5-4c03-9903-44ce05cf1be4"
                                                 },
                                                 "result":{
-                                                    "type": "string",
-                                                    "example":"example"
-                                                },
-                                                "suggestion":{
-                                                    "type": "string",
-                                                    "example":"example"
+                                                    "type": "number",
+                                                    "example":676.87
                                                 },
                                                 "createdAt":{
                                                     "type": "string",
@@ -203,6 +223,461 @@
                                         "status":{
                                             "type": "string",
                                             "example":"failed to load data inference"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":500
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"example"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/inferences/physical":{
+            "post":{
+                "summary": "Doing an inference to predicts physical activity with in an some input",
+                "description": "Calling an another APIs to predicts collect the response",
+                "operationId": "inferenceEventModelPhysical",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "schema":{
+                            "type": "string",
+                            "example":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlNTIxYmY1ZjdhNDAwOGMzYmQ3MjFmMzk2OTcwOWI1MzY0MzA5NjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQXhpb3MiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUJ2Sm5ZOXJpUDl0S0JVcHRSbkwteFpwTV9GV0pvQkljNjE4bklFOGU1MExGY3lBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZpdGNhbC1kNWIyMCIsImF1ZCI6ImZpdGNhbC1kNWIyMCIsImF1dGhfdGltZSI6MTczMTY4MDIxNCwidXNlcl9pZCI6IkxEZndhaVQwVUZla28yVDQ1MkJoSTMzbm5uNzMiLCJzdWIiOiJMRGZ3YWlUMFVGZWtvMlQ0NTJCaEkzM25ubjczIiwiaWF0IjoxNzMxNjgwMjE0LCJleHAiOjE3MzE2ODM4MTQsImVtYWlsIjoiYXhpb3MzMzlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5NDQxMjg3NjI3OTA5ODQ4NTciXSwiZW1haWwiOlsiYXhpb3MzMzlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.QYR1AnjGb4tbLpG1lI8JZ3mEvcYVs6syLCbtDQyAdfNtUzuh7oD-fMyehKOf__Jhm9TZw3HOBUUm3g9zl5XY3qHTfYoqWYQkK-kuxtcqqXtioDoQJG85Fq3qNIQAlbdW1QqzEdL0eYhwNlRv_b4-VXAMt6aiORS6054cC0OOLGuK0IWu5xKS2s-43hZyTisL0srunPxhX6q1szDmRmrLvSfAfviUVCGidKQEr9Hb4sjzgEu65a-ueYjK3c-JHMUu8CR2nJRsHm-UzuPW_uNMK1-qmH-iT3KdlqQN0HyOsAyTWLgUtJh-rP9YKs_nhLqY-IrTa-zMAm2lnqq07AheTw"
+                        },
+                        "description": "Firebase idToken that's get from auth"
+                    }
+                ],
+                "requestBody":{
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "gender":{
+                                        "type": "number",
+                                        "example":1
+                                    },
+                                    "age":{
+                                        "type": "number",
+                                        "example":20
+                                    },"height":{
+                                        "type": "number",
+                                        "example":190.0
+                                    },"weight":{
+                                        "type": "number",
+                                        "example":94.0
+                                    },"duration":{
+                                        "type": "number",
+                                        "example":29
+                                    },"heartRate":{
+                                        "type": "number",
+                                        "example":105.0
+                                    },"bodyTemp":{
+                                        "type": "number",
+                                        "example":40.8
+                                    }
+                                },
+                                "required": ["gender", "age", "height", "weight", "duration", "heartRate", "bodyTemp"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201":{
+                        "description": "Model predicted Successfully",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"Success"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":201
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"success to do inference"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "userId":{
+                                                    "type": "string",
+                                                    "example":"LDfwaiT0UFeko2T452BhI33nnn73"
+                                                },
+                                                "inferenceId":{
+                                                    "type": "string",
+                                                    "example":"8b65895d-a2c5-4c03-9903-44ce05cf1be4"
+                                                },
+                                                "result":{
+                                                    "type": "number",
+                                                    "example":164.32
+                                                },
+                                                "createdAt":{
+                                                    "type": "string",
+                                                    "example":"2024-11-13T15:26:08.964Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "failed to do inference with physical model",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"failed to do inference"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":500
+                                        },
+                                        "message":{
+                                            "type": "string",
+                                            "example":"example"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get":{
+                "summary": "Collect an physical inference data to one user specifically",
+                "description": "Calling an firestore to load inference data of user using physical model",
+                "operationId": "getUserPhysicalHistories",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "schema":{
+                            "type": "string",
+                            "example":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlNTIxYmY1ZjdhNDAwOGMzYmQ3MjFmMzk2OTcwOWI1MzY0MzA5NjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQXhpb3MiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUJ2Sm5ZOXJpUDl0S0JVcHRSbkwteFpwTV9GV0pvQkljNjE4bklFOGU1MExGY3lBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZpdGNhbC1kNWIyMCIsImF1ZCI6ImZpdGNhbC1kNWIyMCIsImF1dGhfdGltZSI6MTczMTY4MDIxNCwidXNlcl9pZCI6IkxEZndhaVQwVUZla28yVDQ1MkJoSTMzbm5uNzMiLCJzdWIiOiJMRGZ3YWlUMFVGZWtvMlQ0NTJCaEkzM25ubjczIiwiaWF0IjoxNzMxNjgwMjE0LCJleHAiOjE3MzE2ODM4MTQsImVtYWlsIjoiYXhpb3MzMzlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5NDQxMjg3NjI3OTA5ODQ4NTciXSwiZW1haWwiOlsiYXhpb3MzMzlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.QYR1AnjGb4tbLpG1lI8JZ3mEvcYVs6syLCbtDQyAdfNtUzuh7oD-fMyehKOf__Jhm9TZw3HOBUUm3g9zl5XY3qHTfYoqWYQkK-kuxtcqqXtioDoQJG85Fq3qNIQAlbdW1QqzEdL0eYhwNlRv_b4-VXAMt6aiORS6054cC0OOLGuK0IWu5xKS2s-43hZyTisL0srunPxhX6q1szDmRmrLvSfAfviUVCGidKQEr9Hb4sjzgEu65a-ueYjK3c-JHMUu8CR2nJRsHm-UzuPW_uNMK1-qmH-iT3KdlqQN0HyOsAyTWLgUtJh-rP9YKs_nhLqY-IrTa-zMAm2lnqq07AheTw"
+                        },
+                        "description": "Firebase idToken that's get from auth"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Data success to load",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"success to load data"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":200
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"Successfully retrieve user physical predictions histories"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                "userId":{
+                                                    "type": "string",
+                                                    "example":"LDfwaiT0UFeko2T452BhI33nnn73"
+                                                },
+                                                "inferenceId":{
+                                                    "type": "string",
+                                                    "example":"8b65895d-a2c5-4c03-9903-44ce05cf1be4"
+                                                },
+                                                "result":{
+                                                    "type": "number",
+                                                    "example":164.32
+                                                },
+                                                "createdAt":{
+                                                    "type": "string",
+                                                    "example":"2024-11-13T15:26:08.964Z"
+                                                }
+                                            }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "fail to load inference data",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"failed to load data physical inference"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":500
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"example"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }                
+            }
+        },
+        "/inferences/sleep":{
+            "post":{
+                "summary": "Doing an inference to predicts sleep disorder with in an some input",
+                "description": "Calling an another APIs to predicts collect the response",
+                "operationId": "inferenceEventModelSleep",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "schema":{
+                            "type": "string",
+                            "example":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlNTIxYmY1ZjdhNDAwOGMzYmQ3MjFmMzk2OTcwOWI1MzY0MzA5NjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQXhpb3MiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUJ2Sm5ZOXJpUDl0S0JVcHRSbkwteFpwTV9GV0pvQkljNjE4bklFOGU1MExGY3lBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZpdGNhbC1kNWIyMCIsImF1ZCI6ImZpdGNhbC1kNWIyMCIsImF1dGhfdGltZSI6MTczMTY4MDIxNCwidXNlcl9pZCI6IkxEZndhaVQwVUZla28yVDQ1MkJoSTMzbm5uNzMiLCJzdWIiOiJMRGZ3YWlUMFVGZWtvMlQ0NTJCaEkzM25ubjczIiwiaWF0IjoxNzMxNjgwMjE0LCJleHAiOjE3MzE2ODM4MTQsImVtYWlsIjoiYXhpb3MzMzlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5NDQxMjg3NjI3OTA5ODQ4NTciXSwiZW1haWwiOlsiYXhpb3MzMzlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.QYR1AnjGb4tbLpG1lI8JZ3mEvcYVs6syLCbtDQyAdfNtUzuh7oD-fMyehKOf__Jhm9TZw3HOBUUm3g9zl5XY3qHTfYoqWYQkK-kuxtcqqXtioDoQJG85Fq3qNIQAlbdW1QqzEdL0eYhwNlRv_b4-VXAMt6aiORS6054cC0OOLGuK0IWu5xKS2s-43hZyTisL0srunPxhX6q1szDmRmrLvSfAfviUVCGidKQEr9Hb4sjzgEu65a-ueYjK3c-JHMUu8CR2nJRsHm-UzuPW_uNMK1-qmH-iT3KdlqQN0HyOsAyTWLgUtJh-rP9YKs_nhLqY-IrTa-zMAm2lnqq07AheTw"
+                        },
+                        "description": "Firebase idToken that's get from auth"
+                    }
+                ],
+                "requestBody":{
+                    "required": true,
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "type": "object",
+                                "properties": {
+                                    "gender":{
+                                        "type": "number",
+                                        "example":1
+                                    },
+                                    "age":{
+                                        "type": "number",
+                                        "example":27
+                                    },
+                                    "sleepDuration":{
+                                        "type": "number",
+                                        "example":6.1
+                                    },
+                                    "qualitySleep":{
+                                        "type": "number",
+                                        "example":6
+                                    },
+                                    "physicalActivity":{
+                                        "type": "number",
+                                        "example":42
+                                    },
+                                    "stressLevel":{
+                                        "type": "number",
+                                        "example":6
+                                    },
+                                    "BMI":{
+                                        "type": "number",
+                                        "example":3
+                                    },
+                                    "heartRate":{
+                                        "type": "number",
+                                        "example":77
+                                    },
+                                    "dailySteps":{
+                                        "type": "number",
+                                        "example":4200
+                                    },
+                                    "systolic":{
+                                        "type": "number",
+                                        "example":126
+                                    },
+                                    "diastolic":{
+                                        "type": "number",
+                                        "example":83
+                                    }
+                                },
+                                "required": ["gender", "age", "sleepDuration", "qualitySleep", "physicalActivity", "stressLevel", "BMI", "heartRate", "dailySteps", "systolic", "diastolic"]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201":{
+                        "description": "Model predicted Successfully",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"Success"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":201
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"success to do inference"
+                                        },
+                                        "data":{
+                                            "type": "object",
+                                            "properties": {
+                                                "userId":{
+                                                    "type": "string",
+                                                    "example":"LDfwaiT0UFeko2T452BhI33nnn73"
+                                                },
+                                                "inferenceId":{
+                                                    "type": "string",
+                                                    "example":"8b65895d-a2c5-4c03-9903-44ce05cf1be4"
+                                                },
+                                                "result":{
+                                                    "type": "string",
+                                                    "example":"Sleep Apnea"
+                                                },
+                                                "createdAt":{
+                                                    "type": "string",
+                                                    "example":"2024-11-13T15:26:08.964Z"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "failed to do inference with sleep model",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"failed to do inference"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":500
+                                        },
+                                        "message":{
+                                            "type": "string",
+                                            "example":"example"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }                
+            },
+            "get":{
+                "summary": "Collect an sleep inference data to one user specifically",
+                "description": "Calling an firestore to load inference data of user using sleep model",
+                "operationId": "getUserSleepHistories",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "required": true,
+                        "schema":{
+                            "type": "string",
+                            "example":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjFlNTIxYmY1ZjdhNDAwOGMzYmQ3MjFmMzk2OTcwOWI1MzY0MzA5NjEiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiQXhpb3MiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUNnOG9jSUJ2Sm5ZOXJpUDl0S0JVcHRSbkwteFpwTV9GV0pvQkljNjE4bklFOGU1MExGY3lBPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2ZpdGNhbC1kNWIyMCIsImF1ZCI6ImZpdGNhbC1kNWIyMCIsImF1dGhfdGltZSI6MTczMTY4MDIxNCwidXNlcl9pZCI6IkxEZndhaVQwVUZla28yVDQ1MkJoSTMzbm5uNzMiLCJzdWIiOiJMRGZ3YWlUMFVGZWtvMlQ0NTJCaEkzM25ubjczIiwiaWF0IjoxNzMxNjgwMjE0LCJleHAiOjE3MzE2ODM4MTQsImVtYWlsIjoiYXhpb3MzMzlAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDI5NDQxMjg3NjI3OTA5ODQ4NTciXSwiZW1haWwiOlsiYXhpb3MzMzlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.QYR1AnjGb4tbLpG1lI8JZ3mEvcYVs6syLCbtDQyAdfNtUzuh7oD-fMyehKOf__Jhm9TZw3HOBUUm3g9zl5XY3qHTfYoqWYQkK-kuxtcqqXtioDoQJG85Fq3qNIQAlbdW1QqzEdL0eYhwNlRv_b4-VXAMt6aiORS6054cC0OOLGuK0IWu5xKS2s-43hZyTisL0srunPxhX6q1szDmRmrLvSfAfviUVCGidKQEr9Hb4sjzgEu65a-ueYjK3c-JHMUu8CR2nJRsHm-UzuPW_uNMK1-qmH-iT3KdlqQN0HyOsAyTWLgUtJh-rP9YKs_nhLqY-IrTa-zMAm2lnqq07AheTw"
+                        },
+                        "description": "Firebase idToken that's get from auth"
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "Data success to load",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"success to load data"
+                                        },
+                                        "statusCode":{
+                                            "type": "number",
+                                            "example":200
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example":"Successfully retrieve user sleep predictions histories"
+                                        },
+                                        "data":{
+                                            "type": "array",
+                                            "items":{
+                                                "type": "object",
+                                                "properties": {
+                                                "userId":{
+                                                    "type": "string",
+                                                    "example":"LDfwaiT0UFeko2T452BhI33nnn73"
+                                                },
+                                                "inferenceId":{
+                                                    "type": "string",
+                                                    "example":"8b65895d-a2c5-4c03-9903-44ce05cf1be4"
+                                                },
+                                                "result":{
+                                                    "type": "string",
+                                                    "example":"Sleep Apnea"
+                                                },
+                                                "createdAt":{
+                                                    "type": "string",
+                                                    "example":"2024-11-13T15:26:08.964Z"
+                                                }
+                                            }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "fail to load inference data",
+                        "content": {
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status":{
+                                            "type": "string",
+                                            "example":"failed to load data sleep inference"
                                         },
                                         "statusCode":{
                                             "type": "number",

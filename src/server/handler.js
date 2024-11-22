@@ -59,7 +59,7 @@ async function getUserCaloriesHistories(request, h){
     return response;
   } catch (e){
     return h.response({
-      status:'failed to load data',
+      status:'failed to load data calories inference',
       statusCode:500,
       message:e.message
     }).code(500);
@@ -111,13 +111,13 @@ async function getUserPhysicalHistories(request, h){
     const response = h.response({
       status:'success to load data',
       statusCode:200,
-      message:'Successfully retrieve user calories predictions histories',
+      message:'Successfully retrieve user physical predictions histories',
       data
     }).code(200);
     return response;
   } catch (e){
     return h.response({
-      status:'failed to load data',
+      status:'failed to load data physical inferences',
       statusCode:500,
       message:e.message
     }).code(500);
@@ -173,13 +173,13 @@ async function getUserSleepHistories(request, h){
     const response = h.response({
       status:'success to load data',
       statusCode:200,
-      message:'Successfully retrieve user calories predictions histories',
+      message:'Successfully retrieve user sleep predictions histories',
       data
     }).code(200);
     return response;
   } catch (e){
     return h.response({
-      status:'failed to load data',
+      status:'failed to load data sleep inference',
       statusCode:500,
       message:e.message
     }).code(500);
