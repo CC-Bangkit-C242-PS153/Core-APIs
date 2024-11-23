@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const { publishPubSubMessage } = require('./../services/pubsub');
 const { getFirestore } = require('firebase-admin/firestore');
 const serviceAcc = JSON.parse(process.env.SERVICE_ACCOUNT_KEY);
 const POOLING_INTERVAL = 200;
@@ -34,6 +35,7 @@ async function validation(request, h) {
   try {
     // Verification idToken from firebase android
     const decodedToken = await admin.auth().verifyIdToken(idToken);
+    await publishPubSubMessage('Warmup', {});
     request.auth.credentials = decodedToken;
     return h.continue;
   } catch (e) {
