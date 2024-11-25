@@ -12,6 +12,7 @@
   "dependencies": {
     "@google-cloud/pubsub": "^4.8.0",
     "@google-cloud/storage": "^7.14.0",
+    "@google/generative-ai": "^0.21.0",
     "@hapi/hapi": "^21.3.12",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",

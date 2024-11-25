@@ -52,7 +52,7 @@ const routes = [
     path:'/fitcal/v1/users/login',
     method:'POST',
     handler:loginUser,
-  }
+  },
 ];
 
 module.exports = { routes };

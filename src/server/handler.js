@@ -1,9 +1,20 @@
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { publishPubSubMessage } = require('./../services/pubsub');
 const { uploadImageInference } = require('./../services/uploadImage');
 const { uploadUserData, downloadUserData, caloriesInferenceFirestore, caloriesHistoriesFirestore, physicalInferenceFirestore, physicalHistoriesFirestore, sleepInferenceFirestore, sleepHistoriesFirestore } = require('../services/firebase');
 const crypto = require('crypto');
 const imageType = require('image-type');
 const bucketName = process.env.BUCKET_NAME;
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// Gemini APIs for creating content with prompt
+async function run(prompt) {
+  const model = genAI.getGenerativeModel({
+    model:'gemini-1.5-flash-8b'
+  });
+  const result = await model.generateContent(prompt);
+  return result.response.text();
+}
 
 // Inference process for calories prediction with image
 async function  inferenceEventModelCalories(request, h){
@@ -149,6 +160,12 @@ async function inferenceEventModelSleep(request, h){
     };
     await publishPubSubMessage('Sleep-ML', data);
     const result = await sleepInferenceFirestore(userData.uid, inferenceId);
+    const suggestion = await run(`Menggunakan JSON schema berikut .list 2 aktivitas untuk manusia dengan kondisi tidur ${result.result}.saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}`);
+    const cleanedText = suggestion
+      .replace(/```json\n/, '') // Menghapus ```json\n di awal
+      .replace(/```/g, '');    // Menghapus ``` di akhir
+    const convertedSuggestion = JSON.parse(cleanedText);
+    result.suggestion = convertedSuggestion;
     const response = h.response({
       status:'Success',
       statusCode:201,
