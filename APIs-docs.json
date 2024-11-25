@@ -114,6 +114,37 @@
                                                 "createdAt":{
                                                     "type":"string",
                                                     "example":"2024-11-12T11:06:21.790Z"
+                                                },
+                                                "suggestion":{
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "activities1":{
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "activity":{
+                                                                    "type": "string",
+                                                                    "example":"Berjalan kaki selama 30 menit dengan kecepatan sedang"
+                                                                },
+                                                                "reason":{
+                                                                    "type": "string",
+                                                                    "example":"Aktivitas ini membantu membakar kalori dan meningkatkan kesehatan jantung.  690.5 kalori cukup tinggi, sehingga diperlukan aktivitas fisik untuk mengimbanginya."
+                                                                }
+                                                            }
+                                                        },
+                                                        "activities2":{
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "activity":{
+                                                                    "type": "string",
+                                                                    "example":"Berjalan kaki selama 30 menit dengan kecepatan sedang"
+                                                                },
+                                                                "reason":{
+                                                                    "type": "string",
+                                                                    "example":"Aktivitas ini membantu membakar kalori dan meningkatkan kesehatan jantung.  690.5 kalori cukup tinggi, sehingga diperlukan aktivitas fisik untuk mengimbanginya."
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -331,6 +362,37 @@
                                                 "createdAt":{
                                                     "type": "string",
                                                     "example":"2024-11-13T15:26:08.964Z"
+                                                },
+                                                "suggestion":{
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "activities1":{
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "activity":{
+                                                                    "type": "string",
+                                                                    "example":"Berjalan kaki selama 30 menit dengan kecepatan sedang"
+                                                                },
+                                                                "reason":{
+                                                                    "type": "string",
+                                                                    "example":"Aktivitas ini membantu meningkatkan pembakaran kalori dan memperkuat jantung,  membantu mempertahankan tingkat aktivitas fisik yang sudah dicapai."
+                                                                }
+                                                            }
+                                                        },
+                                                        "activities2":{
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "activity":{
+                                                                    "type": "string",
+                                                                    "example":"Berjalan kaki selama 30 menit dengan kecepatan sedang"
+                                                                },
+                                                                "reason":{
+                                                                    "type": "string",
+                                                                    "example":"Aktivitas ini membantu meningkatkan pembakaran kalori dan memperkuat jantung,  membantu mempertahankan tingkat aktivitas fisik yang sudah dicapai."
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -569,6 +631,37 @@
                                                 "createdAt":{
                                                     "type": "string",
                                                     "example":"2024-11-13T15:26:08.964Z"
+                                                },
+                                                "suggestion":{
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "activities1":{
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "activity":{
+                                                                    "type": "string",
+                                                                    "example":"Lakukan olahraga ringan secara teratur (minimal 30 menit sehari, tetapi hindari olahraga berat sebelum tidur)"
+                                                                },
+                                                                "reason":{
+                                                                    "type": "string",
+                                                                    "example":"Olahraga dapat meningkatkan kualitas tidur, namun olahraga berat dekat dengan waktu tidur dapat meningkatkan stimulasi dan sulit untuk tidur. Olahraga ringan dapat membantu tubuh lelah dan siap untuk istirahat."
+                                                                }
+                                                            }
+                                                        },
+                                                        "activities2":{
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "activity":{
+                                                                    "type": "string",
+                                                                    "example":"Lakukan olahraga ringan secara teratur (minimal 30 menit sehari, tetapi hindari olahraga berat sebelum tidur)"
+                                                                },
+                                                                "reason":{
+                                                                    "type": "string",
+                                                                    "example":"Olahraga dapat meningkatkan kualitas tidur, namun olahraga berat dekat dengan waktu tidur dapat meningkatkan stimulasi dan sulit untuk tidur. Olahraga ringan dapat membantu tubuh lelah dan siap untuk istirahat."
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
