@@ -167,7 +167,7 @@ async function inferenceEventModelSleep(request, h){
       .replace(/```json\n/, '') // Menghapus ```json\n di awal
       .replace(/```/g, '');    // Menghapus ``` di akhir
     const convertedSuggestion = JSON.parse(cleanedText);
-    result.suggestion = convertedSuggestion;
+    result.suggestion = convertedSuggestion.saran;
     const response = h.response({
       status:'Success',
       statusCode:201,
