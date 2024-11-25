@@ -23,6 +23,7 @@ Make sure Firebase and cloud services are on the same projects and use the servi
 ```
 @google-cloud/pubsub: ^4.8.0
 @google-cloud/storage: ^7.14.0
+@google/generative-ai: ^0.21.0
 @hapi/hapi: ^21.3.12
 crypto: ^1.0.1
 dotenv: ^16.4.5
@@ -46,6 +47,7 @@ The following environment variables are required to run the Fitcal backend:
 
 - `BUCKET_NAME`: Cloud Storage Bucket to Save Image.
 - `SERVICE_ACCOUNT_KEY`: Key to be able to access Firebase services.
+- `GEMINI_API_KEY` : Key to access gemini APIs Service
 
 Make sure to set these variables in the `.env` file before running the application.
 
