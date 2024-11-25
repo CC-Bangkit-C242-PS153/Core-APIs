@@ -47,7 +47,7 @@ async function  inferenceEventModelCalories(request, h){
       .replace(/```json\n/, '') // Menghapus ```json\n di awal
       .replace(/```/g, '');    // Menghapus ``` di akhir
     const convertedSuggestion = JSON.parse(cleanedText);
-    result.suggestion = convertedSuggestion.saran;
+    result.suggestion = convertedSuggestion;
     const response = h.response({
       status:'Success',
       statusCode:201,
@@ -111,7 +111,7 @@ async function inferenceEventModelPhysical(request, h){
       .replace(/```json\n/, '') // Menghapus ```json\n di awal
       .replace(/```/g, '');    // Menghapus ``` di akhir
     const convertedSuggestion = JSON.parse(cleanedText);
-    result.suggestion = convertedSuggestion.saran;
+    result.suggestion = convertedSuggestion;
     const response = h.response({
       status:'Success',
       statusCode:201,
@@ -179,7 +179,7 @@ async function inferenceEventModelSleep(request, h){
       .replace(/```json\n/, '') // Menghapus ```json\n di awal
       .replace(/```/g, '');    // Menghapus ``` di akhir
     const convertedSuggestion = JSON.parse(cleanedText);
-    result.suggestion = convertedSuggestion.saran;
+    result.suggestion = convertedSuggestion;
     const response = h.response({
       status:'Success',
       statusCode:201,
