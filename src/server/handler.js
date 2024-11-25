@@ -10,7 +10,9 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // Gemini APIs for creating content with prompt
 async function run(prompt) {
   const model = genAI.getGenerativeModel({
-    model:'gemini-1.5-flash-8b'
+    model:'gemini-1.5-flash-8b',
+    temperature: 0.8,
+    systemInstruction:'You are a healthy life instructor'
   });
   const result = await model.generateContent(prompt);
   return result.response.text();
