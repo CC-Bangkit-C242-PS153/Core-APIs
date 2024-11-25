@@ -106,7 +106,7 @@ async function inferenceEventModelPhysical(request, h){
     };
     await publishPubSubMessage('Physical-ML', data);
     const result = await physicalInferenceFirestore(userData.uid, inferenceId);
-    const suggestion = await run(`Menggunakan JSON schema berikut. {saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}}. list 2 saran aktivitas untuk manusia dengan aktivitas fisik yang mengeluarkan ${result.result} kalori sehari.`);
+    const suggestion = await run(`Menggunakan JSON schema berikut. {saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}}. list 2 saran untuk manusia yang sudah melakukan aktivitas fisik yang mengeluarkan ${result.result} kalori sehari.`);
     const cleanedText = suggestion
       .replace(/```json\n/, '') // Menghapus ```json\n di awal
       .replace(/```/g, '');    // Menghapus ``` di akhir
