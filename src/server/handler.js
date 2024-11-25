@@ -42,6 +42,12 @@ async function  inferenceEventModelCalories(request, h){
     };
     await publishPubSubMessage('Calories-ML', data);
     const result = await caloriesInferenceFirestore(userData.uid, inferenceId);
+    const suggestion = await run(`Menggunakan JSON schema berikut. saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}. list 2 saran aktivitas untuk manusia yang makan satu porsi dengan ${result.result} kalori.`);
+    const cleanedText = suggestion
+      .replace(/```json\n/, '') // Menghapus ```json\n di awal
+      .replace(/```/g, '');    // Menghapus ``` di akhir
+    const convertedSuggestion = JSON.parse(cleanedText);
+    result.suggestion = convertedSuggestion.saran;
     const response = h.response({
       status:'Success',
       statusCode:201,
@@ -100,6 +106,12 @@ async function inferenceEventModelPhysical(request, h){
     };
     await publishPubSubMessage('Physical-ML', data);
     const result = await physicalInferenceFirestore(userData.uid, inferenceId);
+    const suggestion = await run(`Menggunakan JSON schema berikut. saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}. list 2 saran aktivitas untuk manusia dengan aktivitas fisik yang mengeluarkan ${result.result} kalori sehari.`);
+    const cleanedText = suggestion
+      .replace(/```json\n/, '') // Menghapus ```json\n di awal
+      .replace(/```/g, '');    // Menghapus ``` di akhir
+    const convertedSuggestion = JSON.parse(cleanedText);
+    result.suggestion = convertedSuggestion.saran;
     const response = h.response({
       status:'Success',
       statusCode:201,
@@ -162,7 +174,7 @@ async function inferenceEventModelSleep(request, h){
     };
     await publishPubSubMessage('Sleep-ML', data);
     const result = await sleepInferenceFirestore(userData.uid, inferenceId);
-    const suggestion = await run(`Menggunakan JSON schema berikut .list 2 aktivitas untuk manusia dengan kondisi tidur ${result.result}.saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}`);
+    const suggestion = await run(`Menggunakan JSON schema berikut. saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}. list 2 saran aktivitas untuk manusia dengan kondisi tidur ${result.result}.`);
     const cleanedText = suggestion
       .replace(/```json\n/, '') // Menghapus ```json\n di awal
       .replace(/```/g, '');    // Menghapus ``` di akhir
