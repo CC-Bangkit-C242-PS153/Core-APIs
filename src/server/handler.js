@@ -174,7 +174,7 @@ async function inferenceEventModelSleep(request, h){
     };
     await publishPubSubMessage('Sleep-ML', data);
     const result = await sleepInferenceFirestore(userData.uid, inferenceId);
-    const suggestion = await run(`Menggunakan JSON schema berikut. saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}. list 2 saran aktivitas untuk manusia dengan kondisi tidur ${result.result}.`);
+    const suggestion = await run(`Menggunakan JSON schema berikut. {saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}}. list 2 saran aktivitas untuk manusia dengan kondisi tidur ${result.result}.`);
     const cleanedText = suggestion
       .replace(/```json\n/, '') // Menghapus ```json\n di awal
       .replace(/```/g, '');    // Menghapus ``` di akhir
