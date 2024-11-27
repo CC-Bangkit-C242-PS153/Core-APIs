@@ -23,6 +23,12 @@ async function run(prompt) {
 async function  inferenceEventModelCalories(request, h){
   try {
     const { image, water, protein, lipid, ash, carbohydrate, fiber, sugar } = request.payload;
+    const check = [image, water, protein, lipid, ash, carbohydrate, fiber, sugar];
+    check.forEach((element) => {
+      if (element === undefined) {
+        throw new InputError('Some properties is not defined, please check the payload');
+      }
+    });
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
     const type = imageType(image);
@@ -90,6 +96,12 @@ async function getUserCaloriesHistories(request, h){
 async function inferenceEventModelPhysical(request, h){
   try {
     const { gender, age, height, weight, duration, heartRate, bodyTemp } = request.payload;
+    const check = [gender, age, height, weight, duration, heartRate, bodyTemp];
+    check.forEach((element) => {
+      if (element === undefined) {
+        throw new InputError('Some properties is not defined, please check the payload');
+      }
+    });
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
     const data = {
@@ -155,9 +167,9 @@ async function inferenceEventModelSleep(request, h){
   try {
     const { gender, age, sleepDuration, qualitySleep, physicalActivity, stressLevel, BMI, heartRate, dailySteps, systolic, diastolic } = request.payload;
     const check = [gender, age, sleepDuration, qualitySleep, physicalActivity, stressLevel, BMI, heartRate, dailySteps, systolic, diastolic];
-    check.forEach((element, index) => {
+    check.forEach((element) => {
       if (element === undefined) {
-        throw new InputError(`${check[index]} is not defined, please check the payload`);
+        throw new InputError('Some properties is not defined, please check the payload');
       }
     });
     const userData = request.auth.credentials;
