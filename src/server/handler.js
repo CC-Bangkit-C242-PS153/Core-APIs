@@ -155,9 +155,11 @@ async function inferenceEventModelSleep(request, h){
   try {
     const { gender, age, sleepDuration, qualitySleep, physicalActivity, stressLevel, BMI, heartRate, dailySteps, systolic, diastolic } = request.payload;
     const check = [gender, age, sleepDuration, qualitySleep, physicalActivity, stressLevel, BMI, heartRate, dailySteps, systolic, diastolic];
-    for (const element of check) {
-      if (element == undefined) throw new InputError(`${element} is not defined, please check the payload`);
-    }
+    check.forEach((element, index) => {
+      if (element === undefined) {
+        throw new InputError(`${check[index]} is not defined, please check the payload`);
+      }
+    });
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
     const data = {
