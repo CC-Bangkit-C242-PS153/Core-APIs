@@ -1,6 +1,7 @@
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 const { publishPubSubMessage } = require('./../services/pubsub');
 const { uploadImageInference } = require('./../services/uploadImage');
+const InputError = require('../exceptions/InputError');
 const { uploadUserData, downloadUserData, caloriesInferenceFirestore, caloriesHistoriesFirestore, physicalInferenceFirestore, physicalHistoriesFirestore, sleepInferenceFirestore, sleepHistoriesFirestore } = require('../services/firebase');
 const crypto = require('crypto');
 const imageType = require('image-type');
@@ -21,9 +22,14 @@ async function run(prompt) {
 // Inference process for calories prediction with image
 async function  inferenceEventModelCalories(request, h){
   try {
+    for (const key in request.payload) {
+      if (request.payload[key] === undefined) {
+        throw new InputError(`${key} is not defined. Please check the payload`);
+      }
+    }
+    const { image, water, protein, lipid, ash, carbohydrate, fiber, sugar } = request.payload;
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
-    const { image, water, protein, lipid, ash, carbohydrate, fiber, sugar } = request.payload;
     const type = imageType(image);
     await uploadImageInference(bucketName, inferenceId, image, type).catch((e) => e.message);
     const data = {
@@ -88,9 +94,14 @@ async function getUserCaloriesHistories(request, h){
 // Inference process for Physical recommendation with physical activity input
 async function inferenceEventModelPhysical(request, h){
   try {
+    for (const key in request.payload) {
+      if (request.payload[key] === undefined) {
+        throw new InputError(`${key} is not defined. Please check the payload`);
+      }
+    }
+    const { gender, age, height, weight, duration, heartRate, bodyTemp } = request.payload;
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
-    const { gender, age, height, weight, duration, heartRate, bodyTemp } = request.payload;
     const data = {
       userId:userData.uid,
       inferenceId:inferenceId,
@@ -152,9 +163,14 @@ async function getUserPhysicalHistories(request, h){
 // Inference process for Sleep Recommendation recommendation with sleep activity input
 async function inferenceEventModelSleep(request, h){
   try {
+    for (const key in request.payload) {
+      if (request.payload[key] === undefined) {
+        throw new InputError(`${key} is not defined. Please check the payload`);
+      }
+    }
+    const { gender, age, sleepDuration, qualitySleep, physicalActivity, stressLevel, BMI, heartRate, dailySteps, systolic, diastolic } = request.payload;
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
-    const { gender, age, sleepDuration, qualitySleep, physicalActivity, stressLevel, BMI, heartRate, dailySteps, systolic, diastolic } = request.payload;
     const data = {
       userId:userData.uid,
       inferenceId:inferenceId,
