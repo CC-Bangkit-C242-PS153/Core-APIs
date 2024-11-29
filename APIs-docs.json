@@ -107,7 +107,11 @@
                                                     "type":"string",
                                                     "example":"8b65895d-a2c5-4c03-9903-44ce05cf1be4"
                                                 },
-                                                "result":{
+                                                "foodCategory":{
+                                                    "type":"string",
+                                                    "example":"Tidak Sehat"
+                                                },
+                                                "foodCalories":{
                                                     "type":"number",
                                                     "example":690.5
                                                 },
