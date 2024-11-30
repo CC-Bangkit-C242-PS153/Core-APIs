@@ -348,7 +348,7 @@
                                             "type":"string",
                                             "example":"success to do inference"
                                         },
-                                        "data":{
+                                        "result":{
                                             "type": "object",
                                             "properties": {
                                                 "userId":{
@@ -617,7 +617,7 @@
                                             "type":"string",
                                             "example":"success to do inference"
                                         },
-                                        "data":{
+                                        "result":{
                                             "type": "object",
                                             "properties": {
                                                 "userId":{
