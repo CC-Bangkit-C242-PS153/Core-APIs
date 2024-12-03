@@ -24,6 +24,7 @@ async function  inferenceEventModelCalories(request, h){
   try {
     const { image, water, protein, lipid, ash, carbohydrate, fiber, sugar } = request.payload;
     const check = [image, water, protein, lipid, ash, carbohydrate, fiber, sugar];
+    console.log(check);
     check.forEach((element) => {
       if (element === undefined) {
         throw new InputError('Some properties is not defined, please check the payload');
