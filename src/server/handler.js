@@ -22,16 +22,13 @@ async function run(prompt) {
 // Inference process for calories prediction with image
 async function  inferenceEventModelCalories(request, h){
   try {
-    const { water, protein, lipid, ash, carbohydrate, fiber, sugar } = request.payload;
-    let { image } = request.payload;
-    image = Buffer.from(image);
+    const { image, water, protein, lipid, ash, carbohydrate, fiber, sugar } = request.payload;
     const check = [image, water, protein, lipid, ash, carbohydrate, fiber, sugar];
-    console.log(check);
-    // check.forEach((element) => {
-    //   if (element === undefined) {
-    //     throw new InputError('Some properties is not defined, please check the payload');
-    //   }
-    // });
+    check.forEach((element) => {
+      if (element === undefined) {
+        throw new InputError('Some properties is not defined, please check the payload');
+      }
+    });
     const userData = request.auth.credentials;
     const inferenceId = crypto.randomUUID();
     const type = imageType(image);
