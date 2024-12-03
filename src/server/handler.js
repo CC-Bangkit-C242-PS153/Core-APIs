@@ -24,8 +24,8 @@ async function  inferenceEventModelCalories(request, h){
   try {
     const { water, protein, lipid, ash, carbohydrate, fiber, sugar } = request.payload;
     let { image } = request.payload;
-    const check = [image, water, protein, lipid, ash, carbohydrate, fiber, sugar];
     image = Buffer.from(image);
+    const check = [image, water, protein, lipid, ash, carbohydrate, fiber, sugar];
     console.log(check);
     // check.forEach((element) => {
     //   if (element === undefined) {
