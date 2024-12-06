@@ -49,7 +49,7 @@ async function  inferenceEventModelCalories(request, h){
     };
     await publishPubSubMessage('Calories-ML', data);
     const result = await caloriesInferenceFirestore(userData.uid, inferenceId);
-    const suggestion = await run(`Menggunakan JSON schema berikut. {saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}}. list 2 saran untuk manusia yang makan satu porsi dengan ${result.foodCalories} kalori dan merupakan makanan dengan kategori ${result.foodCategory}.`);
+    const suggestion = await run(`Menggunakan JSON schema berikut. {saran:{activtities1:{activity:str,reason:str},activtities2:{activity:str,reason:str}}}. list 2 saran untuk manusia yang makan satu porsi dengan ${result.foodCalories} kalori dan merupakan makanan dengan kategori makanan ${result.foodCategory} dan makanan ${result.foodCaloriesClass}.`);
     const cleanedText = suggestion
       .replace(/```json\n/, '') // Menghapus ```json\n di awal
       .replace(/```/g, '');    // Menghapus ``` di akhir

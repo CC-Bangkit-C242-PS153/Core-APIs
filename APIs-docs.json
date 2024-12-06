@@ -5,8 +5,8 @@
       "version":"1.0",
       "description": "fitcal RESTful APIs to fullfilled capstone projects",
       "contact": {
-        "email": "email@gmail.com",
-        "name": "name"
+        "email": "yusuf210409@gmail.com",
+        "name": "Muhammad Yusuf Aulia"
       }
     },
     "servers": [
@@ -114,6 +114,10 @@
                                                 "foodCalories":{
                                                     "type":"number",
                                                     "example":690.5
+                                                },
+                                                "foodCaloriesClass":{
+                                                    "type":"string",
+                                                    "example":"High Calories"
                                                 },
                                                 "createdAt":{
                                                     "type":"string",
